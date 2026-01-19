@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Doctor Email Automation</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>Doctor Email Automation</h2>
+    <p>Upload the raw excel file and download doctor-wise output files.</p>
+
+    <!-- File Upload -->
+    <input type="file" id="fileInput" accept=".xlsx, .xls" />
+
+    <!-- Buttons -->
+    <div class="buttons">
+        <button id="uploadBtn" onclick="uploadFile()">Upload</button>
+        <button id="downloadBtn" disabled>Download Output</button>
+    </div>
+
+    <!-- Status -->
+    <p id="status"></p>
+</div>
+
+<script src="/static/script.js"></script>
+</body>
+</html>
