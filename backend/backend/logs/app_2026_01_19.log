@@ -1,0 +1,9 @@
+2026-01-19 13:42:24,073 | INFO | File received: 01 08.xlsx
+2026-01-19 13:42:24,075 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/01 08.xlsx
+2026-01-19 13:42:24,177 | INFO | Excel loaded successfully. Rows: 98
+2026-01-19 13:42:24,180 | WARNING | Appointment Provider Name column missing. Defaulting all rows to 'NIH'.
+2026-01-19 13:42:24,183 | INFO | Dropped 10 invalid rows
+2026-01-19 13:42:24,188 | INFO | Created file for doctor 'NIH' with 88 records
+2026-01-19 13:42:24,188 | INFO | Created combined all_doctors.csv
+2026-01-19 13:42:24,189 | INFO | ZIP file created successfully
+2026-01-19 13:42:24,189 | INFO | Processing completed successfully
