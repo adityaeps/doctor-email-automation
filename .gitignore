@@ -13,3 +13,5 @@ backend/outputs/
 
 # Node (future)
 node_modules/
+backend/credentials.json
+credentials.json
