@@ -1,55 +1,80 @@
-async function uploadFile() {
-    const fileInput = document.getElementById("fileInput");
-    const status = document.getElementById("status");
+// ==============================
+// Upload Daily Excel
+// ==============================
+async function uploadExcel() {
+    const fileInput = document.getElementById("excelFile");
+    const status = document.getElementById("excelStatus");
 
-    // Validate file selection
-    if (!fileInput.files || fileInput.files.length === 0) {
-        alert("Please select a file to upload");
+    if (!fileInput.files.length) {
+        alert("Please select the Excel file");
         return;
     }
 
-    const file = fileInput.files[0];
-
-    // Prepare multipart form data
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append("file", fileInput.files[0]);
 
-    // UI feedback
-    status.innerText = "⏳ Uploading and processing file...";
+    status.innerText = "⏳ Processing Excel...";
 
     try {
-        // Same-origin request (frontend + backend on same server)
         const response = await fetch("/upload", {
             method: "POST",
             body: formData
         });
 
-        // Check backend response
         if (!response.ok) {
-            throw new Error(`Server error: ${response.status}`);
+            throw new Error("Excel upload failed");
         }
 
-        // Receive ZIP file
         const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
 
-        // Trigger download
-        const downloadUrl = window.URL.createObjectURL(blob);
         const a = document.createElement("a");
-        a.href = downloadUrl;
+        a.href = url;
         a.download = "doctor_email_files.zip";
-
-        document.body.appendChild(a);
         a.click();
 
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(downloadUrl);
+        status.innerText = "✅ Emails generated & ZIP downloaded";
 
-        // Success message
-        status.innerText = "✅ File processed successfully. Download started.";
+    } catch (err) {
+        console.error(err);
+        status.innerText = "❌ Excel upload failed";
+    }
+}
 
-    } catch (error) {
-        console.error("Frontend upload error:", error);
-        status.innerText =
-            "❌ Upload failed on frontend. Backend logs may still show success.";
+
+// ==============================
+// Upload No Review CSV
+// ==============================
+async function uploadNoReview() {
+    const fileInput = document.getElementById("noReviewFile");
+    const status = document.getElementById("noReviewStatus");
+
+    if (!fileInput.files.length) {
+        alert("Please select the No-Review CSV file");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", fileInput.files[0]);
+
+    status.innerText = "⏳ Processing No-Review file...";
+
+    try {
+        const response = await fetch("/upload-no-review", {
+            method: "POST",
+            body: formData
+        });
+
+        if (!response.ok) {
+            throw new Error("No-review upload failed");
+        }
+
+        const data = await response.json();
+
+        status.innerText = "✅ Master sheet updated from No-Review file";
+
+    } catch (err) {
+        console.error(err);
+        status.innerText = "❌ No-review upload failed";
     }
 }

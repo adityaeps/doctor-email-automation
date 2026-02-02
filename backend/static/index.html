@@ -9,19 +9,27 @@
 
 <div class="container">
     <h2>Doctor Email Automation</h2>
-    <p>Upload the raw excel file and download doctor-wise output files.</p>
+    <p>Run daily email campaigns and follow-ups.</p>
 
-    <!-- File Upload -->
-    <input type="file" id="fileInput" accept=".xlsx, .xls" />
-
-    <!-- Buttons -->
-    <div class="buttons">
-        <button id="uploadBtn" onclick="uploadFile()">Upload</button>
-        <button id="downloadBtn" disabled>Download Output</button>
+    <!-- ========================= -->
+    <!-- Daily Patient Excel Upload -->
+    <!-- ========================= -->
+    <div class="card">
+        <h3>Upload Daily Patient Excel</h3>
+        <input type="file" id="excelFile" accept=".xlsx,.xls" />
+        <button onclick="uploadExcel()">Upload & Generate Today’s Emails</button>
+        <p id="excelStatus"></p>
     </div>
 
-    <!-- Status -->
-    <p id="status"></p>
+    <!-- ========================= -->
+    <!-- No Review CSV Upload -->
+    <!-- ========================= -->
+    <div class="card">
+        <h3>Upload No-Review CSV</h3>
+        <input type="file" id="noReviewFile" accept=".csv" />
+        <button onclick="uploadNoReview()">Upload No-Review List</button>
+        <p id="noReviewStatus"></p>
+    </div>
 </div>
 
 <script src="/static/script.js"></script>

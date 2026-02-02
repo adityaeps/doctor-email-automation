@@ -1,0 +1,471 @@
+2026-02-02 16:10:01,294 | INFO | Fresh logger initialized
+2026-02-02 16:10:33,607 | INFO | File received: 01 21.xlsx
+2026-02-02 16:10:33,609 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/01 21.xlsx
+2026-02-02 16:10:33,722 | INFO | Excel loaded successfully. Rows: 98
+2026-02-02 16:10:33,727 | INFO | Dropped 9 invalid rows
+2026-02-02 16:10:33,728 | INFO | Excel cleaned successfully. Returning dataframe.
+2026-02-02 16:10:33,728 | INFO | Clean dataframe rows: 89
+2026-02-02 16:10:33,728 | INFO | Reading master from Google Sheet
+2026-02-02 16:10:33,728 | INFO | Reading master from Google Sheet
+2026-02-02 16:10:33,803 | ERROR | Failed to read master from sheet
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/urllib/request.py", line 1321, in do_open
+    h.request(req.get_method(), req.selector, req.data, headers,
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+              encode_chunked=req.has_header('Transfer-encoding'))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/client.py", line 1338, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/client.py", line 1384, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/client.py", line 1333, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/client.py", line 1093, in _send_output
+    self.send(msg)
+    ~~~~~~~~~^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/client.py", line 1037, in send
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/client.py", line 1479, in connect
+    self.sock = self._context.wrap_socket(self.sock,
+                ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+                                          server_hostname=server_hostname)
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/ssl.py", line 455, in wrap_socket
+    return self.sslsocket_class._create(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sock=sock,
+        ^^^^^^^^^^
+    ...<5 lines>...
+        session=session
+        ^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/ssl.py", line 1076, in _create
+    self.do_handshake()
+    ~~~~~~~~~~~~~~~~~^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/ssl.py", line 1372, in do_handshake
+    self._sslobj.do_handshake()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+ssl.SSLCertVerificationError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1077)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/aditya/doctor-email-automation/backend/app/campaign/sheets.py", line 15, in read_master_from_sheet
+    df = pd.read_csv(MASTER_SHEET_URL)
+  File "/Users/aditya/doctor-email-automation/backend/venv/lib/python3.14/site-packages/pandas/io/parsers/readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "/Users/aditya/doctor-email-automation/backend/venv/lib/python3.14/site-packages/pandas/io/parsers/readers.py", line 620, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+  File "/Users/aditya/doctor-email-automation/backend/venv/lib/python3.14/site-packages/pandas/io/parsers/readers.py", line 1620, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/aditya/doctor-email-automation/backend/venv/lib/python3.14/site-packages/pandas/io/parsers/readers.py", line 1880, in _make_engine
+    self.handles = get_handle(
+                   ~~~~~~~~~~^
+        f,
+        ^^
+    ...<6 lines>...
+        storage_options=self.options.get("storage_options", None),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/aditya/doctor-email-automation/backend/venv/lib/python3.14/site-packages/pandas/io/common.py", line 728, in get_handle
+    ioargs = _get_filepath_or_buffer(
+        path_or_buf,
+    ...<3 lines>...
+        storage_options=storage_options,
+    )
+  File "/Users/aditya/doctor-email-automation/backend/venv/lib/python3.14/site-packages/pandas/io/common.py", line 384, in _get_filepath_or_buffer
+    with urlopen(req_info) as req:
+         ~~~~~~~^^^^^^^^^^
+  File "/Users/aditya/doctor-email-automation/backend/venv/lib/python3.14/site-packages/pandas/io/common.py", line 289, in urlopen
+    return urllib.request.urlopen(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/urllib/request.py", line 187, in urlopen
+    return opener.open(url, data, timeout)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/urllib/request.py", line 487, in open
+    response = self._open(req, data)
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/urllib/request.py", line 504, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+                              '_open', req)
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/urllib/request.py", line 464, in _call_chain
+    result = func(*args)
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/urllib/request.py", line 1369, in https_open
+    return self.do_open(http.client.HTTPSConnection, req,
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                        context=self._context)
+                        ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/urllib/request.py", line 1324, in do_open
+    raise URLError(err)
+urllib.error.URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1077)>
+2026-02-02 16:10:33,808 | WARNING | Master sheet empty. Initializing columns.
+2026-02-02 16:10:33,811 | INFO | Adding 89 new patients to master
+2026-02-02 16:10:33,813 | INFO | Saved updated_master_for_sheet.csv for Google Sheet update
+2026-02-02 16:10:33,813 | INFO | Master updated. Paste updated_master_for_sheet.csv into Google Sheet.
+2026-02-02 16:10:33,813 | INFO | Building today's 300 email list
+2026-02-02 16:10:33,816 | INFO | Today's list created with 89 patients
+2026-02-02 16:10:33,818 | INFO | Saved updated_master_for_sheet.csv for Google Sheet update
+2026-02-02 16:10:33,819 | INFO | Today's send list size: 89
+2026-02-02 16:10:33,822 | INFO | ZIP created and returning to frontend
+2026-02-02 16:52:16,513 | INFO | Fresh logger initialized
+2026-02-02 16:52:54,108 | INFO | File received: 01 21.xlsx
+2026-02-02 16:52:54,110 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/01 21.xlsx
+2026-02-02 16:52:54,216 | INFO | Excel loaded successfully. Rows: 98
+2026-02-02 16:52:54,221 | INFO | Dropped 9 invalid rows
+2026-02-02 16:52:54,223 | INFO | Excel cleaned successfully. Returning dataframe.
+2026-02-02 16:52:54,223 | INFO | Clean dataframe rows: 89
+2026-02-02 16:52:54,223 | INFO | Reading master from Google Sheet
+2026-02-02 16:52:54,223 | INFO | Reading master from Google Sheet
+2026-02-02 16:52:55,976 | WARNING | Master sheet empty. Initializing columns.
+2026-02-02 16:52:55,982 | INFO | Adding 89 new patients to master
+2026-02-02 16:52:55,986 | INFO | Saved updated_master_for_sheet.csv for Google Sheet update
+2026-02-02 16:52:55,986 | INFO | Master updated. Paste updated_master_for_sheet.csv into Google Sheet.
+2026-02-02 16:52:55,986 | INFO | Building today's 300 email list
+2026-02-02 16:52:55,990 | INFO | Today's list created with 89 patients
+2026-02-02 16:52:55,995 | INFO | Saved updated_master_for_sheet.csv for Google Sheet update
+2026-02-02 16:52:55,995 | INFO | Today's send list size: 89
+2026-02-02 16:52:56,000 | INFO | ZIP created and returning to frontend
+2026-02-02 17:02:46,374 | INFO | Fresh logger initialized
+2026-02-02 17:03:37,139 | INFO | File received: 01 21.xlsx
+2026-02-02 17:03:37,140 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/01 21.xlsx
+2026-02-02 17:03:37,236 | INFO | Excel loaded successfully. Rows: 98
+2026-02-02 17:03:37,237 | INFO | Dropped 9 invalid rows
+2026-02-02 17:03:37,238 | INFO | Excel cleaned successfully. Returning dataframe.
+2026-02-02 17:03:37,238 | INFO | Clean dataframe rows: 89
+2026-02-02 17:03:37,238 | INFO | Reading master from Google Sheet
+2026-02-02 17:03:37,238 | INFO | Reading master from Google Sheet
+2026-02-02 17:03:43,482 | WARNING | Master sheet empty. Initializing columns.
+2026-02-02 17:03:43,491 | INFO | Adding 89 new patients to master
+2026-02-02 17:03:43,497 | INFO | Saved updated_master_for_sheet.csv for Google Sheet update
+2026-02-02 17:03:43,497 | INFO | Master updated. Paste updated_master_for_sheet.csv into Google Sheet.
+2026-02-02 17:03:43,497 | INFO | Building today's 300 email list
+2026-02-02 17:03:43,499 | INFO | Today's list created with 89 patients
+2026-02-02 17:03:43,504 | INFO | Saved updated_master_for_sheet.csv for Google Sheet update
+2026-02-02 17:03:43,504 | INFO | Today's send list size: 89
+2026-02-02 17:03:43,511 | INFO | ZIP created and returning to frontend
+2026-02-02 17:14:33,533 | INFO | File received: 01 21.xlsx
+2026-02-02 17:14:33,537 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/01 21.xlsx
+2026-02-02 17:14:33,566 | INFO | Excel loaded successfully. Rows: 98
+2026-02-02 17:14:33,569 | INFO | Dropped 9 invalid rows
+2026-02-02 17:14:33,570 | INFO | Excel cleaned successfully. Returning dataframe.
+2026-02-02 17:14:33,570 | INFO | Clean dataframe rows: 89
+2026-02-02 17:14:33,570 | INFO | Reading master from Google Sheet
+2026-02-02 17:14:33,570 | INFO | Reading master from Google Sheet
+2026-02-02 17:14:34,934 | INFO | Adding 1 new patients to master
+2026-02-02 17:14:34,938 | INFO | Saved updated_master_for_sheet.csv for Google Sheet update
+2026-02-02 17:14:34,938 | INFO | Master updated. Paste updated_master_for_sheet.csv into Google Sheet.
+2026-02-02 17:14:34,938 | INFO | Building today's 300 email list
+2026-02-02 17:14:34,940 | INFO | Today's list created with 1 patients
+2026-02-02 17:14:34,942 | INFO | Saved updated_master_for_sheet.csv for Google Sheet update
+2026-02-02 17:14:34,942 | INFO | Today's send list size: 1
+2026-02-02 17:14:34,946 | INFO | ZIP created and returning to frontend
+2026-02-02 17:16:50,440 | INFO | File received: 01 21.xlsx
+2026-02-02 17:16:50,441 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/01 21.xlsx
+2026-02-02 17:16:50,461 | INFO | Excel loaded successfully. Rows: 98
+2026-02-02 17:16:50,465 | INFO | Dropped 9 invalid rows
+2026-02-02 17:16:50,466 | INFO | Excel cleaned successfully. Returning dataframe.
+2026-02-02 17:16:50,466 | INFO | Clean dataframe rows: 89
+2026-02-02 17:16:50,466 | INFO | Reading master from Google Sheet
+2026-02-02 17:16:50,466 | INFO | Reading master from Google Sheet
+2026-02-02 17:16:51,918 | INFO | Adding 1 new patients to master
+2026-02-02 17:16:51,920 | INFO | Saved updated_master_for_sheet.csv for Google Sheet update
+2026-02-02 17:16:51,920 | INFO | Master updated. Paste updated_master_for_sheet.csv into Google Sheet.
+2026-02-02 17:16:51,920 | INFO | Building today's 300 email list
+2026-02-02 17:16:51,921 | INFO | Today's list created with 1 patients
+2026-02-02 17:16:51,922 | INFO | Saved updated_master_for_sheet.csv for Google Sheet update
+2026-02-02 17:16:51,922 | INFO | Today's send list size: 1
+2026-02-02 17:16:51,925 | INFO | ZIP created and returning to frontend
+2026-02-02 17:16:58,819 | INFO | File received: 01 22.xlsx
+2026-02-02 17:16:58,820 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/01 22.xlsx
+2026-02-02 17:16:58,838 | INFO | Excel loaded successfully. Rows: 103
+2026-02-02 17:16:58,839 | INFO | Dropped 7 invalid rows
+2026-02-02 17:16:58,840 | INFO | Excel cleaned successfully. Returning dataframe.
+2026-02-02 17:16:58,840 | INFO | Clean dataframe rows: 96
+2026-02-02 17:16:58,841 | INFO | Reading master from Google Sheet
+2026-02-02 17:16:58,841 | INFO | Reading master from Google Sheet
+2026-02-02 17:17:00,019 | INFO | Adding 96 new patients to master
+2026-02-02 17:17:00,022 | INFO | Saved updated_master_for_sheet.csv for Google Sheet update
+2026-02-02 17:17:00,022 | INFO | Master updated. Paste updated_master_for_sheet.csv into Google Sheet.
+2026-02-02 17:17:00,022 | INFO | Building today's 300 email list
+2026-02-02 17:17:00,024 | INFO | Today's list created with 96 patients
+2026-02-02 17:17:00,029 | INFO | Saved updated_master_for_sheet.csv for Google Sheet update
+2026-02-02 17:17:00,029 | INFO | Today's send list size: 96
+2026-02-02 17:17:00,035 | INFO | ZIP created and returning to frontend
+2026-02-02 18:32:13,298 | INFO | Fresh logger initialized
+2026-02-02 21:57:53,072 | INFO | Fresh logger initialized
+2026-02-02 21:59:04,978 | INFO | Fresh logger initialized
+2026-02-02 22:04:11,303 | INFO | Fresh logger initialized
+2026-02-02 22:05:43,021 | INFO | Fresh logger initialized
+2026-02-02 22:05:43,674 | INFO | Using credentials at: /Users/aditya/doctor-email-automation/backend/credentials.json
+2026-02-02 22:06:50,434 | INFO | File received: 01 22.xlsx
+2026-02-02 22:06:50,435 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/01 22.xlsx
+2026-02-02 22:06:50,524 | INFO | Excel loaded successfully. Rows: 103
+2026-02-02 22:06:50,531 | INFO | Dropped 7 invalid rows
+2026-02-02 22:06:50,532 | INFO | Excel cleaned successfully. Returning dataframe.
+2026-02-02 22:06:50,532 | INFO | Clean dataframe rows: 96
+2026-02-02 22:06:50,532 | INFO | Reading master from Google Sheet
+2026-02-02 22:06:50,532 | INFO | Reading master from Google Sheet via API
+2026-02-02 22:06:50,532 | ERROR | Upload failed
+Traceback (most recent call last):
+  File "/Users/aditya/doctor-email-automation/backend/app/main.py", line 62, in upload_excel
+    master = append_new_patients(clean_df)
+  File "/Users/aditya/doctor-email-automation/backend/app/campaign/master.py", line 18, in append_new_patients
+    master = read_master_from_sheet()
+  File "/Users/aditya/doctor-email-automation/backend/app/campaign/sheets.py", line 33, in read_master_from_sheet
+    sheet = client.open_by_url(SHEET_URL).worksheet(SHEET_NAME)
+            ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/Users/aditya/doctor-email-automation/backend/venv/lib/python3.14/site-packages/gspread/client.py", line 189, in open_by_url
+    return self.open_by_key(extract_id_from_url(url))
+                            ~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/aditya/doctor-email-automation/backend/venv/lib/python3.14/site-packages/gspread/utils.py", line 622, in extract_id_from_url
+    raise NoValidUrlKeyFound
+gspread.exceptions.NoValidUrlKeyFound
+2026-02-02 22:08:50,598 | INFO | Fresh logger initialized
+2026-02-02 22:08:51,110 | INFO | Using credentials at: /Users/aditya/doctor-email-automation/backend/credentials.json
+2026-02-02 22:09:19,146 | INFO | File received: 01 22.xlsx
+2026-02-02 22:09:19,147 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/01 22.xlsx
+2026-02-02 22:09:19,235 | INFO | Excel loaded successfully. Rows: 103
+2026-02-02 22:09:19,236 | INFO | Dropped 7 invalid rows
+2026-02-02 22:09:19,237 | INFO | Excel cleaned successfully. Returning dataframe.
+2026-02-02 22:09:19,237 | INFO | Clean dataframe rows: 96
+2026-02-02 22:09:19,237 | INFO | Reading master from Google Sheet
+2026-02-02 22:09:19,237 | INFO | Reading master from Google Sheet via API
+2026-02-02 22:09:20,651 | ERROR | Upload failed
+Traceback (most recent call last):
+  File "/Users/aditya/doctor-email-automation/backend/venv/lib/python3.14/site-packages/gspread/spreadsheet.py", line 327, in worksheet
+    item = finditem(
+        lambda x: x["properties"]["title"] == title,
+        sheet_data["sheets"],
+    )
+  File "/Users/aditya/doctor-email-automation/backend/venv/lib/python3.14/site-packages/gspread/utils.py", line 224, in finditem
+    return next(item for item in seq if func(item))
+StopIteration
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/aditya/doctor-email-automation/backend/app/main.py", line 62, in upload_excel
+    master = append_new_patients(clean_df)
+  File "/Users/aditya/doctor-email-automation/backend/app/campaign/master.py", line 18, in append_new_patients
+    master = read_master_from_sheet()
+  File "/Users/aditya/doctor-email-automation/backend/app/campaign/sheets.py", line 33, in read_master_from_sheet
+    sheet = client.open_by_url(SHEET_URL).worksheet(SHEET_NAME)
+  File "/Users/aditya/doctor-email-automation/backend/venv/lib/python3.14/site-packages/gspread/spreadsheet.py", line 333, in worksheet
+    raise WorksheetNotFound(title)
+gspread.exceptions.WorksheetNotFound: Sheet1
+2026-02-02 22:11:11,007 | INFO | Fresh logger initialized
+2026-02-02 22:11:11,516 | INFO | Using credentials at: /Users/aditya/doctor-email-automation/backend/credentials.json
+2026-02-02 22:11:28,082 | INFO | File received: 01 22.xlsx
+2026-02-02 22:11:28,084 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/01 22.xlsx
+2026-02-02 22:11:28,179 | INFO | Excel loaded successfully. Rows: 103
+2026-02-02 22:11:28,183 | INFO | Dropped 7 invalid rows
+2026-02-02 22:11:28,184 | INFO | Excel cleaned successfully. Returning dataframe.
+2026-02-02 22:11:28,184 | INFO | Clean dataframe rows: 96
+2026-02-02 22:11:28,184 | INFO | Reading master from Google Sheet
+2026-02-02 22:11:28,184 | INFO | Reading master from Google Sheet via API
+2026-02-02 22:11:29,862 | INFO | Adding 96 new patients to master
+2026-02-02 22:11:29,863 | INFO | Writing master back to Google Sheet via API
+2026-02-02 22:11:31,382 | ERROR | Upload failed
+Traceback (most recent call last):
+  File "/Users/aditya/doctor-email-automation/backend/app/main.py", line 62, in upload_excel
+    master = append_new_patients(clean_df)
+  File "/Users/aditya/doctor-email-automation/backend/app/campaign/master.py", line 49, in append_new_patients
+    save_master_for_sheet(master)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/Users/aditya/doctor-email-automation/backend/app/campaign/sheets.py", line 43, in save_master_for_sheet
+    sheet.update([df.columns.values.tolist()] + df.values.tolist())
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/aditya/doctor-email-automation/backend/venv/lib/python3.14/site-packages/gspread/worksheet.py", line 1246, in update
+    response = self.client.values_update(
+        self.spreadsheet_id,
+    ...<2 lines>...
+        body={"values": values, "majorDimension": major_dimension},
+    )
+  File "/Users/aditya/doctor-email-automation/backend/venv/lib/python3.14/site-packages/gspread/http_client.py", line 173, in values_update
+    r = self.request("put", url, params=params, json=body)
+  File "/Users/aditya/doctor-email-automation/backend/venv/lib/python3.14/site-packages/gspread/http_client.py", line 114, in request
+    response = self.session.request(
+        method=method,
+    ...<6 lines>...
+        timeout=self.timeout,
+    )
+  File "/Users/aditya/doctor-email-automation/backend/venv/lib/python3.14/site-packages/google/auth/transport/requests.py", line 543, in request
+    response = super(AuthorizedSession, self).request(
+        method,
+    ...<4 lines>...
+        **kwargs
+    )
+  File "/Users/aditya/doctor-email-automation/backend/venv/lib/python3.14/site-packages/requests/sessions.py", line 575, in request
+    prep = self.prepare_request(req)
+  File "/Users/aditya/doctor-email-automation/backend/venv/lib/python3.14/site-packages/requests/sessions.py", line 484, in prepare_request
+    p.prepare(
+    ~~~~~~~~~^
+        method=request.method.upper(),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<10 lines>...
+        hooks=merge_hooks(request.hooks, self.hooks),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/aditya/doctor-email-automation/backend/venv/lib/python3.14/site-packages/requests/models.py", line 370, in prepare
+    self.prepare_body(data, files, json)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/Users/aditya/doctor-email-automation/backend/venv/lib/python3.14/site-packages/requests/models.py", line 510, in prepare_body
+    body = complexjson.dumps(json, allow_nan=False)
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/json/__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ~~~~~~^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/json/encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/json/encoder.py", line 261, in iterencode
+    return _iterencode(o, 0)
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/json/encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type NAType is not JSON serializable
+when serializing list item 1
+when serializing list item 185
+when serializing dict item 'values'
+2026-02-02 22:13:17,990 | INFO | Fresh logger initialized
+2026-02-02 22:13:18,489 | INFO | Using credentials at: /Users/aditya/doctor-email-automation/backend/credentials.json
+2026-02-02 22:13:52,338 | INFO | File received: 01 22.xlsx
+2026-02-02 22:13:52,338 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/01 22.xlsx
+2026-02-02 22:13:52,417 | INFO | Excel loaded successfully. Rows: 103
+2026-02-02 22:13:52,418 | INFO | Dropped 7 invalid rows
+2026-02-02 22:13:52,419 | INFO | Excel cleaned successfully. Returning dataframe.
+2026-02-02 22:13:52,419 | INFO | Clean dataframe rows: 96
+2026-02-02 22:13:52,419 | INFO | Reading master from Google Sheet
+2026-02-02 22:13:52,419 | INFO | Reading master from Google Sheet via API
+2026-02-02 22:13:54,339 | WARNING | Master sheet empty. Initializing columns.
+2026-02-02 22:13:54,342 | INFO | Adding 96 new patients to master
+2026-02-02 22:13:54,342 | INFO | Writing master back to Google Sheet via API
+2026-02-02 22:13:56,380 | INFO | Master updated. Paste updated_master_for_sheet.csv into Google Sheet.
+2026-02-02 22:13:56,381 | INFO | Building today's 300 email list
+2026-02-02 22:13:56,386 | INFO | Today's list created with 96 patients
+2026-02-02 22:13:56,389 | INFO | Writing master back to Google Sheet via API
+2026-02-02 22:13:58,435 | INFO | Today's send list size: 96
+2026-02-02 22:13:58,450 | INFO | ZIP created and returning to frontend
+2026-02-02 22:19:44,230 | INFO | File received: 01 23.xlsx
+2026-02-02 22:19:44,233 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/01 23.xlsx
+2026-02-02 22:19:44,261 | INFO | Excel loaded successfully. Rows: 61
+2026-02-02 22:19:44,264 | INFO | Dropped 7 invalid rows
+2026-02-02 22:19:44,266 | INFO | Excel cleaned successfully. Returning dataframe.
+2026-02-02 22:19:44,266 | INFO | Clean dataframe rows: 54
+2026-02-02 22:19:44,266 | INFO | Reading master from Google Sheet
+2026-02-02 22:19:44,266 | INFO | Reading master from Google Sheet via API
+2026-02-02 22:19:45,621 | INFO | Adding 53 new patients to master
+2026-02-02 22:19:45,621 | INFO | Writing master back to Google Sheet via API
+2026-02-02 22:19:47,640 | INFO | Master updated. Paste updated_master_for_sheet.csv into Google Sheet.
+2026-02-02 22:19:47,640 | INFO | Building today's 300 email list
+2026-02-02 22:19:47,642 | INFO | Today's list created with 53 patients
+2026-02-02 22:19:47,644 | INFO | Writing master back to Google Sheet via API
+2026-02-02 22:19:49,497 | INFO | Today's send list size: 53
+2026-02-02 22:19:49,501 | INFO | ZIP created and returning to frontend
+2026-02-02 22:34:03,495 | INFO | Fresh logger initialized
+2026-02-02 22:34:04,167 | INFO | Using credentials at: /Users/aditya/doctor-email-automation/backend/credentials.json
+2026-02-02 22:34:51,062 | INFO | Fresh logger initialized
+2026-02-02 22:34:51,553 | INFO | Using credentials at: /Users/aditya/doctor-email-automation/backend/credentials.json
+2026-02-02 22:40:50,713 | INFO | Processing no-review file
+2026-02-02 22:40:50,738 | INFO | Reading master from Google Sheet via API
+2026-02-02 22:40:52,440 | INFO | Writing master back to Google Sheet via API
+2026-02-02 22:40:54,759 | INFO | Follow-up processing completed. Update sheet from CSV.
+2026-02-02 23:07:49,831 | INFO | Fresh logger initialized
+2026-02-02 23:07:50,343 | INFO | Using credentials at: /Users/aditya/doctor-email-automation/backend/credentials.json
+2026-02-02 23:07:54,973 | INFO | Fresh logger initialized
+2026-02-02 23:07:55,330 | INFO | Using credentials at: /Users/aditya/doctor-email-automation/backend/credentials.json
+2026-02-02 23:08:18,074 | INFO | Fresh logger initialized
+2026-02-02 23:08:18,581 | INFO | Using credentials at: /Users/aditya/doctor-email-automation/backend/credentials.json
+2026-02-02 23:10:41,119 | INFO | Fresh logger initialized
+2026-02-02 23:10:41,752 | INFO | Using credentials at: /Users/aditya/doctor-email-automation/backend/credentials.json
+2026-02-02 23:10:55,461 | INFO | Processing no-review file with Post Date logic
+2026-02-02 23:10:55,490 | INFO | Reading master from Google Sheet
+2026-02-02 23:10:55,490 | INFO | Reading master from Google Sheet via API
+2026-02-02 23:10:57,376 | INFO | Writing master back to Google Sheet via API
+2026-02-02 23:10:59,467 | INFO | Master saved to Google Sheet
+2026-02-02 23:10:59,467 | INFO | Follow-up processing completed correctly
+2026-02-02 23:11:23,618 | INFO | File received: 01 23.xlsx
+2026-02-02 23:11:23,620 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/01 23.xlsx
+2026-02-02 23:11:23,722 | INFO | Excel loaded successfully. Rows: 61
+2026-02-02 23:11:23,726 | INFO | Dropped 7 invalid rows
+2026-02-02 23:11:23,727 | INFO | Excel cleaned successfully. Returning dataframe.
+2026-02-02 23:11:23,727 | INFO | Clean dataframe rows: 54
+2026-02-02 23:11:23,727 | INFO | Reading master from Google Sheet
+2026-02-02 23:11:23,727 | INFO | Reading master from Google Sheet via API
+2026-02-02 23:11:25,073 | INFO | No new patients to add
+2026-02-02 23:11:25,073 | INFO | Building today's 300 email list
+2026-02-02 23:11:25,073 | ERROR | Upload failed
+Traceback (most recent call last):
+  File "/Users/aditya/doctor-email-automation/backend/app/main.py", line 64, in upload_excel
+    today_df, updated_master = build_today_list(master)
+                               ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/Users/aditya/doctor-email-automation/backend/app/campaign/scheduler.py", line 14, in build_today_list
+    (master[COL_EMAIL_COUNT] >= 3)
+            ^^^^^^^^^^^^^^^
+NameError: name 'COL_EMAIL_COUNT' is not defined
+2026-02-02 23:12:38,496 | INFO | Fresh logger initialized
+2026-02-02 23:12:39,006 | INFO | Using credentials at: /Users/aditya/doctor-email-automation/backend/credentials.json
+2026-02-02 23:12:47,433 | INFO | File received: 01 23.xlsx
+2026-02-02 23:12:47,435 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/01 23.xlsx
+2026-02-02 23:12:47,513 | INFO | Excel loaded successfully. Rows: 61
+2026-02-02 23:12:47,514 | INFO | Dropped 7 invalid rows
+2026-02-02 23:12:47,515 | INFO | Excel cleaned successfully. Returning dataframe.
+2026-02-02 23:12:47,515 | INFO | Clean dataframe rows: 54
+2026-02-02 23:12:47,515 | INFO | Reading master from Google Sheet
+2026-02-02 23:12:47,515 | INFO | Reading master from Google Sheet via API
+2026-02-02 23:12:49,246 | INFO | No new patients to add
+2026-02-02 23:12:49,247 | INFO | Building today's 300 email list
+2026-02-02 23:12:49,248 | ERROR | Upload failed
+Traceback (most recent call last):
+  File "/Users/aditya/doctor-email-automation/backend/venv/lib/python3.14/site-packages/pandas/core/indexes/base.py", line 3812, in get_loc
+    return self._engine.get_loc(casted_key)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7096, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'Email Count'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/aditya/doctor-email-automation/backend/app/main.py", line 64, in upload_excel
+    today_df, updated_master = build_today_list(master)
+                               ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/Users/aditya/doctor-email-automation/backend/app/campaign/scheduler.py", line 14, in build_today_list
+    (master[COL_EMAIL_COUNT] >= 3)
+     ~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/aditya/doctor-email-automation/backend/venv/lib/python3.14/site-packages/pandas/core/frame.py", line 4113, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "/Users/aditya/doctor-email-automation/backend/venv/lib/python3.14/site-packages/pandas/core/indexes/base.py", line 3819, in get_loc
+    raise KeyError(key) from err
+KeyError: 'Email Count'
+2026-02-02 23:15:09,984 | INFO | Fresh logger initialized
+2026-02-02 23:15:10,502 | INFO | Using credentials at: /Users/aditya/doctor-email-automation/backend/credentials.json
+2026-02-02 23:15:31,190 | INFO | Fresh logger initialized
+2026-02-02 23:15:31,676 | INFO | Using credentials at: /Users/aditya/doctor-email-automation/backend/credentials.json
+2026-02-02 23:15:42,584 | INFO | File received: 01 23.xlsx
+2026-02-02 23:15:42,585 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/01 23.xlsx
+2026-02-02 23:15:42,673 | INFO | Excel loaded successfully. Rows: 61
+2026-02-02 23:15:42,675 | INFO | Dropped 7 invalid rows
+2026-02-02 23:15:42,676 | INFO | Excel cleaned successfully. Returning dataframe.
+2026-02-02 23:15:42,676 | INFO | Clean dataframe rows: 54
+2026-02-02 23:15:42,676 | INFO | Reading master from Google Sheet
+2026-02-02 23:15:42,676 | INFO | Reading master from Google Sheet via API
+2026-02-02 23:15:44,556 | INFO | No new patients to add
+2026-02-02 23:15:44,556 | INFO | Building today's 300 email list
+2026-02-02 23:15:44,559 | INFO | Today's list created with 0 patients
+2026-02-02 23:15:44,559 | INFO | Writing master back to Google Sheet via API
+2026-02-02 23:15:46,655 | INFO | Today's send list size: 0
+2026-02-02 23:15:46,664 | INFO | ZIP created and returning to frontend
+2026-02-02 23:20:00,128 | INFO | Processing no-review file with Post Date logic
+2026-02-02 23:20:00,155 | INFO | Reading master from Google Sheet
+2026-02-02 23:20:00,155 | INFO | Reading master from Google Sheet via API
+2026-02-02 23:20:01,869 | INFO | Writing master back to Google Sheet via API
+2026-02-02 23:20:03,978 | INFO | Master saved to Google Sheet
+2026-02-02 23:20:03,978 | INFO | Follow-up processing completed correctly

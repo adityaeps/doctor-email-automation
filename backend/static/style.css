@@ -4,30 +4,32 @@ body {
 }
 
 .container {
-    width: 400px;
-    margin: 100px auto;
+    width: 420px;
+    margin: 60px auto;
     padding: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
     text-align: center;
 }
 
 h2 {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* Card layout for each upload section */
+.card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-bottom: 25px;
 }
 
 input[type="file"] {
     margin: 15px 0;
 }
 
-.buttons {
-    margin-top: 15px;
-}
-
 button {
     padding: 8px 16px;
-    margin: 5px;
+    margin-top: 10px;
     cursor: pointer;
 }
 
@@ -36,7 +38,8 @@ button:disabled {
     opacity: 0.6;
 }
 
-#status {
-    margin-top: 15px;
+.status {
+    margin-top: 12px;
     font-size: 14px;
+    min-height: 20px;
 }
