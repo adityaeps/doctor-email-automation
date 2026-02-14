@@ -13,3 +13,6 @@ backend/outputs/
 
 # Node (future)
 node_modules/
+
+# Local secrets
+backend/credentials.json

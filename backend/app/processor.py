@@ -78,9 +78,11 @@ def process_excel(input_excel: str, output_dir: str) -> str:
             filename = safe_filename(doctor)
             path = os.path.join(doctors_dir, f"{filename}.csv")
 
-            group[
+            group_out = group[
                 ["Patient First Name", "Patient E-mail"]
-            ].to_csv(path, index=False)
+            ].copy()
+            group_out.insert(0, "Sr No.", range(1, len(group_out) + 1))
+            group_out.to_csv(path, index=False)
 
             logger.info(
                 f"Created file for doctor '{doctor}' with {len(group)} records"
