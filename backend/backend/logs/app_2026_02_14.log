@@ -20,3 +20,14 @@
 2026-02-14 17:31:28,192 | INFO | Created combined all_doctors.csv
 2026-02-14 17:31:28,194 | INFO | ZIP file created successfully
 2026-02-14 17:31:28,194 | INFO | Processing completed successfully
+2026-02-15 22:38:25,845 | INFO | File received: 12 15.xlsx
+2026-02-15 22:38:25,849 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/12 15.xlsx
+2026-02-15 22:38:25,888 | INFO | Excel loaded successfully. Rows: 113
+2026-02-15 22:38:25,897 | INFO | Dropped 11 invalid rows
+2026-02-15 22:38:25,902 | INFO | Created file for doctor 'Bice, Jamie' with 17 records
+2026-02-15 22:38:25,903 | INFO | Created file for doctor 'KAR, JITESH K' with 57 records
+2026-02-15 22:38:25,903 | INFO | Created file for doctor 'NIH' with 1 records
+2026-02-15 22:38:25,904 | INFO | Created file for doctor 'Nguyen, Jeffrey' with 27 records
+2026-02-15 22:38:25,904 | INFO | Created combined all_doctors.csv
+2026-02-15 22:38:25,907 | INFO | ZIP file created successfully
+2026-02-15 22:38:25,907 | INFO | Processing completed successfully

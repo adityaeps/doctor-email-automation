@@ -1,0 +1,49 @@
+2026-02-15 22:53:17,244 | INFO | File received: 12 12.xlsx
+2026-02-15 22:53:17,245 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/12 12.xlsx
+2026-02-15 22:53:17,357 | INFO | Excel loaded successfully. Rows: 64
+2026-02-15 22:53:17,358 | INFO | Columns detected: ['Visit Type', 'Patient First Name', 'Patient Last Name', 'Patient Cell Phone', 'Patient E-mail', 'Appointment Provider Name']
+2026-02-15 22:53:17,364 | INFO | Dropped 9 invalid rows
+2026-02-15 22:53:17,367 | INFO | Created file for doctor 'Bice, Jamie' with 25 records
+2026-02-15 22:53:17,368 | INFO | Created file for doctor 'KAR, JITESH K' with 5 records
+2026-02-15 22:53:17,368 | INFO | Created file for doctor 'NIH' with 1 records
+2026-02-15 22:53:17,369 | INFO | Created file for doctor 'Nguyen, Jeffrey' with 24 records
+2026-02-15 22:53:17,369 | INFO | Created combined all_doctors.csv
+2026-02-15 22:53:17,371 | INFO | ZIP file created successfully
+2026-02-15 22:53:17,371 | INFO | Processing completed successfully
+2026-02-15 22:55:25,020 | INFO | File received: 12 10.xlsx
+2026-02-15 22:55:25,023 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/12 10.xlsx
+2026-02-15 22:55:25,046 | INFO | Excel loaded successfully. Rows: 98
+2026-02-15 22:55:25,046 | INFO | Columns detected: ['Visit Type', 'Patient First Name', 'Patient Last Name', 'Patient Cell Phone', 'Patient E-mail', 'Appointment Provider Name']
+2026-02-15 22:55:25,048 | INFO | Dropped 10 invalid rows
+2026-02-15 22:55:25,052 | INFO | Created file for doctor 'Bice, Jamie' with 18 records
+2026-02-15 22:55:25,053 | INFO | Created file for doctor 'KAR, JITESH K' with 49 records
+2026-02-15 22:55:25,053 | INFO | Created file for doctor 'NIH' with 1 records
+2026-02-15 22:55:25,054 | INFO | Created file for doctor 'Nguyen, Jeffrey' with 20 records
+2026-02-15 22:55:25,054 | INFO | Created combined all_doctors.csv
+2026-02-15 22:55:25,057 | INFO | ZIP file created successfully
+2026-02-15 22:55:25,057 | INFO | Processing completed successfully
+2026-02-15 23:00:03,393 | INFO | File received: 12 15.xlsx
+2026-02-15 23:00:03,395 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/12 15.xlsx
+2026-02-15 23:00:03,489 | INFO | Excel loaded successfully. Rows: 113
+2026-02-15 23:00:03,489 | INFO | Columns detected: ['Visit Type', 'Patient First Name', 'Patient Last Name', 'Patient Cell Phone', 'Patient E-mail', 'Appointment Provider Name']
+2026-02-15 23:00:03,490 | INFO | Dropped 11 invalid rows
+2026-02-15 23:00:03,492 | INFO | Created file for doctor 'Bice, Jamie' with 17 records
+2026-02-15 23:00:03,493 | INFO | Created file for doctor 'KAR, JITESH K' with 57 records
+2026-02-15 23:00:03,493 | INFO | Created file for doctor 'NIH' with 1 records
+2026-02-15 23:00:03,494 | INFO | Created file for doctor 'Nguyen, Jeffrey' with 27 records
+2026-02-15 23:00:03,494 | INFO | Created combined all_doctors.csv
+2026-02-15 23:00:03,496 | INFO | ZIP file created successfully
+2026-02-15 23:00:03,496 | INFO | Processing completed successfully
+2026-02-15 23:20:03,792 | INFO | File received: 12 10.xlsx
+2026-02-15 23:20:03,810 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/12 10.xlsx
+2026-02-15 23:20:03,909 | INFO | Columns detected: ['Visit Type', 'Patient First Name', 'Patient Last Name', 'Patient Cell Phone', 'Patient E-mail', 'Appointment Provider Name']
+2026-02-15 23:20:03,909 | INFO | Excel loaded successfully. Rows: 98
+2026-02-15 23:20:03,910 | INFO | Unique Providers Found: ['KAR, JITESH K' 'Nguyen, Jeffrey' 'Bice, Jamie' 'NIH']
+2026-02-15 23:20:03,911 | INFO | Dropped 10 invalid rows
+2026-02-15 23:20:03,913 | INFO | Created file for doctor 'Bice, Jamie' with 18 records
+2026-02-15 23:20:03,914 | INFO | Created file for doctor 'KAR, JITESH K' with 49 records
+2026-02-15 23:20:03,914 | INFO | Created file for doctor 'NIH' with 1 records
+2026-02-15 23:20:03,915 | INFO | Created file for doctor 'Nguyen, Jeffrey' with 20 records
+2026-02-15 23:20:03,915 | INFO | Created combined all_doctors.csv
+2026-02-15 23:20:03,918 | INFO | ZIP file created successfully
+2026-02-15 23:20:03,918 | INFO | Processing completed successfully
