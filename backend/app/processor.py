@@ -30,9 +30,6 @@ def process_excel(input_excel: str, output_dir: str) -> str:
         logger.info(f"Excel loaded successfully. Rows: {len(df)}")
         logger.info(f"Columns detected: {list(df.columns)}")
 
-        # Normalize column names to avoid hidden whitespace issues
-        df.columns = df.columns.astype("string").str.strip()
-
         # -----------------------------
         # Provider column handling
         # -----------------------------
@@ -44,10 +41,9 @@ def process_excel(input_excel: str, output_dir: str) -> str:
         else:
             df[PROVIDER_COL] = (
                 df[PROVIDER_COL]
-                .astype("string")
-                .str.strip()
                 .fillna(DEFAULT_PROVIDER)
                 .replace("", DEFAULT_PROVIDER)
+                .astype(str)
             )
 
         # -----------------------------
@@ -57,19 +53,11 @@ def process_excel(input_excel: str, output_dir: str) -> str:
             ["Patient First Name", "Patient E-mail", PROVIDER_COL]
         ].copy()
 
-        df = df.dropna(subset=["Patient E-mail", "Patient First Name"])
+        df = df.dropna(subset=["Patient E-mail"])
 
         df["Patient First Name"] = normalize_string(df["Patient First Name"])
         df["Patient E-mail"] = clean_email(df["Patient E-mail"])
         df[PROVIDER_COL] = normalize_string(df[PROVIDER_COL])
-
-        # Drop invalid emails (e.g., time-like values such as 16:00:09)
-        before = len(df)
-        email_pattern = r"^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"
-        df = df[df["Patient E-mail"].str.contains(email_pattern, na=False)]
-        dropped_email = before - len(df)
-        if dropped_email:
-            logger.info(f"Dropped {dropped_email} invalid email rows")
 
         # -----------------------------
         # Zip
