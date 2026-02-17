@@ -48,6 +48,9 @@ def process_excel(input_excel: str, output_dir: str) -> str:
             ["Patient First Name", "Patient E-mail", PROVIDER_COL]
         ].copy()
 
+        # Remove invlaid rows before cleaning to avoid losing data due to cleaning issues
+        df = df.iloc[0:-4]
+
         # -----------------------------
         # Drop invalid rows
         # (DO NOT drop on provider)
