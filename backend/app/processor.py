@@ -12,6 +12,9 @@ from app.utils import (
 
 PROVIDER_COL = "Appointment Provider Name"
 DEFAULT_PROVIDER = "NIH"
+OUTPUT_SRN_COL = "SRN"
+OUTPUT_NAME_COL = "Name"
+OUTPUT_EMAIL_COL = "Email"
 
 
 def process_excel(input_excel: str, output_dir: str) -> str:
@@ -85,7 +88,13 @@ def process_excel(input_excel: str, output_dir: str) -> str:
             group_out = group[
                 ["Patient First Name", "Patient E-mail"]
             ].copy()
-            group_out.insert(0, "Sr No.", range(1, len(group_out) + 1))
+            group_out = group_out.rename(
+                columns={
+                    "Patient First Name": OUTPUT_NAME_COL,
+                    "Patient E-mail": OUTPUT_EMAIL_COL,
+                }
+            )
+            group_out.insert(0, OUTPUT_SRN_COL, range(1, len(group_out) + 1))
             group_out.to_csv(path, index=False)
 
             logger.info(
@@ -96,7 +105,17 @@ def process_excel(input_excel: str, output_dir: str) -> str:
         # Save combined file
         # -----------------------------
         combined_path = os.path.join(output_dir, "all_doctors.csv")
-        df.to_csv(combined_path, index=False)
+        combined_out = df[
+            ["Patient First Name", "Patient E-mail"]
+        ].copy()
+        combined_out = combined_out.rename(
+            columns={
+                "Patient First Name": OUTPUT_NAME_COL,
+                "Patient E-mail": OUTPUT_EMAIL_COL,
+            }
+        )
+        combined_out.insert(0, OUTPUT_SRN_COL, range(1, len(combined_out) + 1))
+        combined_out.to_csv(combined_path, index=False)
         logger.info("Created combined all_doctors.csv")
 
         # -----------------------------
