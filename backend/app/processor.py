@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 import zipfile
+import io
 
 from app.utils import (
     normalize_string,
@@ -29,6 +30,9 @@ def process_excel(input_excel: str, output_dir: str) -> str:
         logger.info(f"Excel loaded successfully. Rows: {len(df)}")
         logger.info(f"Columns detected: {list(df.columns)}")
 
+        # Normalize column names to avoid hidden whitespace issues
+        df.columns = df.columns.astype("string").str.strip()
+
         # -----------------------------
         # Provider column handling
         # -----------------------------
@@ -40,9 +44,10 @@ def process_excel(input_excel: str, output_dir: str) -> str:
         else:
             df[PROVIDER_COL] = (
                 df[PROVIDER_COL]
+                .astype("string")
+                .str.strip()
                 .fillna(DEFAULT_PROVIDER)
                 .replace("", DEFAULT_PROVIDER)
-                .astype(str)
             )
 
         # -----------------------------
@@ -52,51 +57,19 @@ def process_excel(input_excel: str, output_dir: str) -> str:
             ["Patient First Name", "Patient E-mail", PROVIDER_COL]
         ].copy()
 
-        df = df.dropna(subset=["Patient E-mail"])
+        df = df.dropna(subset=["Patient E-mail", "Patient First Name"])
 
         df["Patient First Name"] = normalize_string(df["Patient First Name"])
         df["Patient E-mail"] = clean_email(df["Patient E-mail"])
         df[PROVIDER_COL] = normalize_string(df[PROVIDER_COL])
 
-        # -----------------------------
-        # Output directory
-        # -----------------------------
-        doctors_dir = os.path.join(output_dir, "doctors")
-        os.makedirs(doctors_dir, exist_ok=True)
-
-        # -----------------------------
-        # Doctor-wise files
-        # -----------------------------
-        for doctor, group in df.groupby(PROVIDER_COL):
-
-            safe_doctor = safe_filename(doctor)
-
-            # 🔥 NEW NAMING FORMAT
-            filename = f"{base_filename}_{safe_doctor}.csv"
-
-            path = os.path.join(doctors_dir, filename)
-
-            group_out = group[
-                ["Patient First Name", "Patient E-mail"]
-            ].copy()
-
-            group_out.insert(0, "Sr No.", range(1, len(group_out) + 1))
-
-            group_out.to_csv(path, index=False)
-
-            logger.info(
-                f"Created file: {filename} with {len(group)} records"
-            )
-
-        # -----------------------------
-        # Combined file
-        # -----------------------------
-        combined_path = os.path.join(
-            output_dir,
-            f"{base_filename}_all_doctors.csv"
-        )
-
-        df.to_csv(combined_path, index=False)
+        # Drop invalid emails (e.g., time-like values such as 16:00:09)
+        before = len(df)
+        email_pattern = r"^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"
+        df = df[df["Patient E-mail"].str.contains(email_pattern, na=False)]
+        dropped_email = before - len(df)
+        if dropped_email:
+            logger.info(f"Dropped {dropped_email} invalid email rows")
 
         # -----------------------------
         # Zip
@@ -107,12 +80,28 @@ def process_excel(input_excel: str, output_dir: str) -> str:
         )
 
         with zipfile.ZipFile(zip_path, "w") as zipf:
-            zipf.write(combined_path, os.path.basename(combined_path))
+            # Combined file (no disk write)
+            combined_name = f"{base_filename}_all_doctors.csv"
+            combined_buf = io.StringIO()
+            df.to_csv(combined_buf, index=False)
+            zipf.writestr(combined_name, combined_buf.getvalue())
 
-            for file in os.listdir(doctors_dir):
-                zipf.write(
-                    os.path.join(doctors_dir, file),
-                    f"doctors/{file}"
+            # Doctor-wise files (no disk write)
+            for doctor, group in df.groupby(PROVIDER_COL):
+                safe_doctor = safe_filename(doctor)
+                filename = f"{base_filename}_{safe_doctor}.csv"
+
+                group_out = group[
+                    ["Patient First Name", "Patient E-mail"]
+                ].copy()
+                group_out.insert(0, "Sr No.", range(1, len(group_out) + 1))
+
+                buf = io.StringIO()
+                group_out.to_csv(buf, index=False)
+                zipf.writestr(f"doctors/{filename}", buf.getvalue())
+
+                logger.info(
+                    f"Added to ZIP: {filename} with {len(group)} records"
                 )
 
         logger.info("ZIP file created successfully")
