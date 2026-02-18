@@ -2,6 +2,7 @@
 import pandas as pd
 import os
 import zipfile
+from pathlib import Path
 
 from app.utils import (
     normalize_string,
@@ -20,6 +21,9 @@ OUTPUT_EMAIL_COL = "Email"
 def process_excel(input_excel: str, output_dir: str) -> str:
     try:
         logger.info(f"Started processing file: {input_excel}")
+        # Extract filename stem to append to doctor filenames
+        stem = Path(input_excel).stem
+        stem_safe = safe_filename(stem)
 
         # -----------------------------
         # Load Excel
@@ -83,7 +87,10 @@ def process_excel(input_excel: str, output_dir: str) -> str:
         # -----------------------------
         for doctor, group in df.groupby(PROVIDER_COL, dropna=False):
             filename = safe_filename(doctor)
-            path = os.path.join(doctors_dir, f"{filename}.csv")
+            if stem_safe:
+                path = os.path.join(doctors_dir, f"{filename}_{stem_safe}.csv")
+            else:
+                path = os.path.join(doctors_dir, f"{filename}.csv")
 
             group_out = group[
                 ["Patient First Name", "Patient E-mail"]
