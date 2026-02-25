@@ -113,12 +113,13 @@ def process_excel(input_excel: str, output_dir: str) -> str:
         # -----------------------------
         combined_path = os.path.join(output_dir, "all_doctors.csv")
         combined_out = df[
-            ["Patient First Name", "Patient E-mail"]
+            ["Patient First Name", "Patient E-mail", PROVIDER_COL]
         ].copy()
         combined_out = combined_out.rename(
             columns={
                 "Patient First Name": OUTPUT_NAME_COL,
                 "Patient E-mail": OUTPUT_EMAIL_COL,
+                PROVIDER_COL: "Provider",
             }
         )
         combined_out.insert(0, OUTPUT_SRN_COL, range(1, len(combined_out) + 1))
