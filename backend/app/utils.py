@@ -3,23 +3,22 @@ import logging
 import pandas as pd
 from datetime import datetime
 import os
+from pathlib import Path
 
 
 # ---------------- LOGGER SETUP ----------------
 
-LOG_DIR = "backend/logs"
-os.makedirs(LOG_DIR, exist_ok=True)
+BASE_DIR = Path(__file__).resolve().parent.parent
+LOG_DIR = BASE_DIR / "logs"
+LOG_DIR.mkdir(parents=True, exist_ok=True)
 
-LOG_FILE = os.path.join(
-    LOG_DIR,
-    f"app_{datetime.now().strftime('%Y_%m_%d')}.log"
-)
+LOG_FILE = LOG_DIR / f"app_{datetime.now().strftime('%Y_%m_%d')}.log"
 
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s | %(levelname)s | %(message)s",
     handlers=[
-        logging.FileHandler(LOG_FILE),
+        logging.FileHandler(str(LOG_FILE)),
         logging.StreamHandler()
     ]
 )

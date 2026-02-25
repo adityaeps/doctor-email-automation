@@ -141,7 +141,7 @@ def process_excel(input_excel: str, output_dir: str) -> str:
         logger.info("ZIP file created successfully")
         logger.info("Processing completed successfully")
 
-        return zip_path
+        return zip_path, df
 
     except Exception:
         logger.exception("❌ Error occurred while processing excel")

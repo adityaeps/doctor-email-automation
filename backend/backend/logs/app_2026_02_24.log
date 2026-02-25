@@ -1,0 +1,27 @@
+2026-02-24 15:06:19,432 | INFO | File received: 12 10.xlsx
+2026-02-24 15:06:19,435 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/12 10.xlsx
+2026-02-24 15:06:19,689 | INFO | Excel loaded successfully. Rows: 98
+2026-02-24 15:06:19,692 | INFO | Dropped 7 invalid rows
+2026-02-24 15:06:19,696 | INFO | Created file for doctor 'Bice, Jamie' with 18 records
+2026-02-24 15:06:19,697 | INFO | Created file for doctor 'KAR, JITESH K' with 49 records
+2026-02-24 15:06:19,698 | INFO | Created file for doctor 'Nguyen, Jeffrey' with 20 records
+2026-02-24 15:06:19,699 | INFO | Created combined all_doctors.csv
+2026-02-24 15:06:19,700 | INFO | ZIP file created successfully
+2026-02-24 15:06:19,700 | INFO | Processing completed successfully
+2026-02-24 15:06:19,700 | INFO | Reading master sheet
+2026-02-24 15:06:19,700 | ERROR | Upload failed
+Traceback (most recent call last):
+  File "/Users/aditya/doctor-email-automation/backend/app/main.py", line 58, in upload_excel
+    append_new_patients(clean_df)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/Users/aditya/doctor-email-automation/backend/app/google_sheet.py", line 49, in append_new_patients
+    master = read_master()
+  File "/Users/aditya/doctor-email-automation/backend/app/google_sheet.py", line 36, in read_master
+    sheet = client.open_by_url(SHEET_URL).worksheet(SHEET_NAME)
+            ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/Users/aditya/doctor-email-automation/.venv/lib/python3.14/site-packages/gspread/client.py", line 189, in open_by_url
+    return self.open_by_key(extract_id_from_url(url))
+                            ~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/aditya/doctor-email-automation/.venv/lib/python3.14/site-packages/gspread/utils.py", line 622, in extract_id_from_url
+    raise NoValidUrlKeyFound
+gspread.exceptions.NoValidUrlKeyFound

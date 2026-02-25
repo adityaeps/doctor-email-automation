@@ -4,6 +4,7 @@ from fastapi.staticfiles import StaticFiles
 from pathlib import Path
 import shutil
 
+from app.google_sheet import append_new_patients
 from app.processor import process_excel
 from app.utils import logger
 
@@ -47,7 +48,16 @@ async def upload_excel(file: UploadFile = File(...)):
         with open(file_path, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
 
-        zip_path = process_excel(str(file_path), str(OUTPUT_DIR))
+        # Process Excel
+        zip_path, clean_df = process_excel(
+            str(file_path),
+            str(OUTPUT_DIR)
+        )
+
+        # Append to Google Master Sheet
+        append_new_patients(clean_df)
+
+        logger.info("Master sheet updated successfully")
 
         return FileResponse(
             zip_path,

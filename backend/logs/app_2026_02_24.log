@@ -1,0 +1,148 @@
+2026-02-24 15:13:28,250 | INFO | File received: 12 10.xlsx
+2026-02-24 15:13:28,252 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/12 10.xlsx
+2026-02-24 15:13:28,325 | INFO | Excel loaded successfully. Rows: 98
+2026-02-24 15:13:28,327 | INFO | Dropped 7 invalid rows
+2026-02-24 15:13:28,329 | INFO | Created file for doctor 'Bice, Jamie' with 18 records
+2026-02-24 15:13:28,330 | INFO | Created file for doctor 'KAR, JITESH K' with 49 records
+2026-02-24 15:13:28,330 | INFO | Created file for doctor 'Nguyen, Jeffrey' with 20 records
+2026-02-24 15:13:28,331 | INFO | Created combined all_doctors.csv
+2026-02-24 15:13:28,332 | INFO | ZIP file created successfully
+2026-02-24 15:13:28,332 | INFO | Processing completed successfully
+2026-02-24 15:13:28,332 | INFO | Reading master sheet
+2026-02-24 15:13:29,145 | ERROR | Upload failed
+Traceback (most recent call last):
+  File "/Users/aditya/doctor-email-automation/.venv/lib/python3.14/site-packages/gspread/client.py", line 168, in open_by_key
+    spreadsheet = Spreadsheet(self.http_client, {"id": key})
+  File "/Users/aditya/doctor-email-automation/.venv/lib/python3.14/site-packages/gspread/spreadsheet.py", line 29, in __init__
+    metadata = self.fetch_sheet_metadata()
+  File "/Users/aditya/doctor-email-automation/.venv/lib/python3.14/site-packages/gspread/spreadsheet.py", line 230, in fetch_sheet_metadata
+    return self.client.fetch_sheet_metadata(self.id, params=params)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/aditya/doctor-email-automation/.venv/lib/python3.14/site-packages/gspread/http_client.py", line 305, in fetch_sheet_metadata
+    r = self.request("get", url, params=params)
+  File "/Users/aditya/doctor-email-automation/.venv/lib/python3.14/site-packages/gspread/http_client.py", line 128, in request
+    raise APIError(response)
+gspread.exceptions.APIError: APIError: [404]: Requested entity was not found.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/aditya/doctor-email-automation/backend/app/main.py", line 58, in upload_excel
+    append_new_patients(clean_df)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/Users/aditya/doctor-email-automation/backend/app/google_sheet.py", line 69, in append_new_patients
+    master = read_master()
+  File "/Users/aditya/doctor-email-automation/backend/app/google_sheet.py", line 56, in read_master
+    sheet = client.open_by_url(SHEET_URL).worksheet(SHEET_NAME)
+            ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/Users/aditya/doctor-email-automation/.venv/lib/python3.14/site-packages/gspread/client.py", line 189, in open_by_url
+    return self.open_by_key(extract_id_from_url(url))
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/aditya/doctor-email-automation/.venv/lib/python3.14/site-packages/gspread/client.py", line 171, in open_by_key
+    raise SpreadsheetNotFound(ex.response) from ex
+gspread.exceptions.SpreadsheetNotFound: <Response [404]>
+2026-02-24 15:15:33,086 | INFO | File received: 12 12.xlsx
+2026-02-24 15:15:33,088 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/12 12.xlsx
+2026-02-24 15:15:33,182 | INFO | Excel loaded successfully. Rows: 64
+2026-02-24 15:15:33,184 | INFO | Dropped 6 invalid rows
+2026-02-24 15:15:33,187 | INFO | Created file for doctor 'Bice, Jamie' with 25 records
+2026-02-24 15:15:33,188 | INFO | Created file for doctor 'KAR, JITESH K' with 5 records
+2026-02-24 15:15:33,189 | INFO | Created file for doctor 'Nguyen, Jeffrey' with 24 records
+2026-02-24 15:15:33,190 | INFO | Created combined all_doctors.csv
+2026-02-24 15:15:33,191 | INFO | ZIP file created successfully
+2026-02-24 15:15:33,191 | INFO | Processing completed successfully
+2026-02-24 15:15:33,192 | INFO | Reading master sheet
+2026-02-24 15:15:33,192 | ERROR | Upload failed
+Traceback (most recent call last):
+  File "/Users/aditya/doctor-email-automation/backend/app/main.py", line 58, in upload_excel
+    append_new_patients(clean_df)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/Users/aditya/doctor-email-automation/backend/app/google_sheet.py", line 99, in append_new_patients
+    master = read_master()
+  File "/Users/aditya/doctor-email-automation/backend/app/google_sheet.py", line 86, in read_master
+    sheet = _get_sheet()
+  File "/Users/aditya/doctor-email-automation/backend/app/google_sheet.py", line 68, in _get_sheet
+    raise ValueError(
+    ...<4 lines>...
+    )
+ValueError: The provided Google Sheet URL is a published link. Use the edit URL (looks like 'https://docs.google.com/spreadsheets/d/<sheet-id>/edit') and share it with email-automation@turing-clock-400911.iam.gserviceaccount.com.
+2026-02-24 15:19:21,168 | INFO | File received: 12 11.xlsx
+2026-02-24 15:19:21,169 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/12 11.xlsx
+2026-02-24 15:19:21,232 | INFO | Excel loaded successfully. Rows: 101
+2026-02-24 15:19:21,234 | INFO | Dropped 8 invalid rows
+2026-02-24 15:19:21,236 | INFO | Created file for doctor 'Bice, Jamie' with 23 records
+2026-02-24 15:19:21,236 | INFO | Created file for doctor 'KAR, JITESH K' with 46 records
+2026-02-24 15:19:21,237 | INFO | Created file for doctor 'Nguyen, Jeffrey' with 20 records
+2026-02-24 15:19:21,237 | INFO | Created combined all_doctors.csv
+2026-02-24 15:19:21,239 | INFO | ZIP file created successfully
+2026-02-24 15:19:21,239 | INFO | Processing completed successfully
+2026-02-24 15:19:21,239 | INFO | Reading master sheet
+2026-02-24 15:19:23,138 | ERROR | Upload failed
+Traceback (most recent call last):
+  File "/Users/aditya/doctor-email-automation/.venv/lib/python3.14/site-packages/gspread/spreadsheet.py", line 327, in worksheet
+    item = finditem(
+        lambda x: x["properties"]["title"] == title,
+        sheet_data["sheets"],
+    )
+  File "/Users/aditya/doctor-email-automation/.venv/lib/python3.14/site-packages/gspread/utils.py", line 224, in finditem
+    return next(item for item in seq if func(item))
+StopIteration
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/aditya/doctor-email-automation/backend/app/main.py", line 58, in upload_excel
+    append_new_patients(clean_df)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/Users/aditya/doctor-email-automation/backend/app/google_sheet.py", line 98, in append_new_patients
+    master = read_master()
+  File "/Users/aditya/doctor-email-automation/backend/app/google_sheet.py", line 85, in read_master
+    sheet = _get_sheet()
+  File "/Users/aditya/doctor-email-automation/backend/app/google_sheet.py", line 75, in _get_sheet
+    return client.open_by_url(SHEET_URL).worksheet(SHEET_NAME)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/Users/aditya/doctor-email-automation/.venv/lib/python3.14/site-packages/gspread/spreadsheet.py", line 333, in worksheet
+    raise WorksheetNotFound(title)
+gspread.exceptions.WorksheetNotFound: Master_sheet
+2026-02-24 15:24:22,557 | INFO | File received: 12 11.xlsx
+2026-02-24 15:24:22,558 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/12 11.xlsx
+2026-02-24 15:24:22,642 | INFO | Excel loaded successfully. Rows: 101
+2026-02-24 15:24:22,643 | INFO | Dropped 8 invalid rows
+2026-02-24 15:24:22,645 | INFO | Created file for doctor 'Bice, Jamie' with 23 records
+2026-02-24 15:24:22,646 | INFO | Created file for doctor 'KAR, JITESH K' with 46 records
+2026-02-24 15:24:22,646 | INFO | Created file for doctor 'Nguyen, Jeffrey' with 20 records
+2026-02-24 15:24:22,647 | INFO | Created combined all_doctors.csv
+2026-02-24 15:24:22,649 | INFO | ZIP file created successfully
+2026-02-24 15:24:22,649 | INFO | Processing completed successfully
+2026-02-24 15:24:22,649 | INFO | Reading master sheet
+2026-02-24 15:24:24,869 | INFO | Adding 89 new patients
+2026-02-24 15:24:24,870 | INFO | Saving master sheet
+2026-02-24 15:24:27,237 | INFO | Master sheet updated successfully
+2026-02-24 15:25:58,917 | INFO | File received: 12 15.xlsx
+2026-02-24 15:25:58,918 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/12 15.xlsx
+2026-02-24 15:25:58,929 | INFO | Excel loaded successfully. Rows: 113
+2026-02-24 15:25:58,931 | INFO | Dropped 8 invalid rows
+2026-02-24 15:25:58,933 | INFO | Created file for doctor 'Bice, Jamie' with 17 records
+2026-02-24 15:25:58,934 | INFO | Created file for doctor 'KAR, JITESH K' with 57 records
+2026-02-24 15:25:58,934 | INFO | Created file for doctor 'Nguyen, Jeffrey' with 27 records
+2026-02-24 15:25:58,935 | INFO | Created combined all_doctors.csv
+2026-02-24 15:25:58,937 | INFO | ZIP file created successfully
+2026-02-24 15:25:58,937 | INFO | Processing completed successfully
+2026-02-24 15:25:58,937 | INFO | Reading master sheet
+2026-02-24 15:26:00,505 | INFO | Adding 101 new patients
+2026-02-24 15:26:00,506 | INFO | Saving master sheet
+2026-02-24 15:26:03,077 | INFO | Master sheet updated successfully
+2026-02-24 15:36:07,915 | INFO | File received: 12 12.xlsx
+2026-02-24 15:36:07,917 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/12 12.xlsx
+2026-02-24 15:36:07,928 | INFO | Excel loaded successfully. Rows: 64
+2026-02-24 15:36:07,931 | INFO | Dropped 6 invalid rows
+2026-02-24 15:36:07,933 | INFO | Created file for doctor 'Bice, Jamie' with 25 records
+2026-02-24 15:36:07,933 | INFO | Created file for doctor 'KAR, JITESH K' with 5 records
+2026-02-24 15:36:07,934 | INFO | Created file for doctor 'Nguyen, Jeffrey' with 24 records
+2026-02-24 15:36:07,935 | INFO | Created combined all_doctors.csv
+2026-02-24 15:36:07,937 | INFO | ZIP file created successfully
+2026-02-24 15:36:07,937 | INFO | Processing completed successfully
+2026-02-24 15:36:07,938 | INFO | Reading master sheet
+2026-02-24 15:36:38,175 | INFO | Adding 53 new patients
+2026-02-24 15:36:38,176 | INFO | Saving master sheet
+2026-02-24 15:36:40,431 | INFO | Master sheet updated successfully
