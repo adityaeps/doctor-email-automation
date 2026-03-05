@@ -15,4 +15,4 @@ backend/outputs/
 node_modules/
 
 # Local secrets
-backend/credentials.json
+backend/old_credentials.json
