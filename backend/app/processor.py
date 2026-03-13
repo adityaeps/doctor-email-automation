@@ -1,8 +1,11 @@
 
-import pandas as pd
 import os
+import re
 import zipfile
+from datetime import datetime
 from pathlib import Path
+
+import pandas as pd
 
 from app.utils import (
     normalize_string,
@@ -16,6 +19,57 @@ DEFAULT_PROVIDER = "NIH"
 OUTPUT_SRN_COL = "SRN"
 OUTPUT_NAME_COL = "Name"
 OUTPUT_EMAIL_COL = "Email"
+APPT_DATE_COL = "Appointment Date"
+
+
+def _extract_appt_date_from_filename(path: str) -> str:
+    """
+    Extract appointment date from filename.
+    Expected patterns like: "YYYY-MM-DD", "MM-DD-YYYY", "MM DD", "MM-DD",
+    "MM_DD", "MMDD" in the stem.
+    Falls back to today's date if not found.
+    """
+    stem = Path(path).stem
+    # 1) YYYY-MM-DD / YYYY_MM_DD / YYYY MM DD / YYYYMMDD
+    match = re.search(
+        r"(20\d{2})[\s\-_]?(0?[1-9]|1[0-2])[\s\-_]?([0-2]?\d|3[01])",
+        stem
+    )
+    if match:
+        year = int(match.group(1))
+        month = int(match.group(2))
+        day = int(match.group(3))
+        try:
+            return datetime(year, month, day).strftime("%Y-%m-%d")
+        except ValueError:
+            return datetime.today().strftime("%Y-%m-%d")
+
+    # 2) MM-DD-YYYY / MM_DD_YYYY / MM DD YYYY / MMDDYYYY
+    match = re.search(
+        r"(0?[1-9]|1[0-2])[\s\-_]?([0-2]?\d|3[01])[\s\-_]?(20\d{2})",
+        stem
+    )
+    if match:
+        month = int(match.group(1))
+        day = int(match.group(2))
+        year = int(match.group(3))
+        try:
+            return datetime(year, month, day).strftime("%Y-%m-%d")
+        except ValueError:
+            return datetime.today().strftime("%Y-%m-%d")
+
+    # 3) MM DD / MM-DD / MM_DD / MMDD (use current year)
+    match = re.search(r"(0?[1-9]|1[0-2])[\s\-_]?([0-2]?\d|3[01])", stem)
+    if not match:
+        return datetime.today().strftime("%Y-%m-%d")
+
+    month = int(match.group(1))
+    day = int(match.group(2))
+    year = datetime.today().year
+    try:
+        return datetime(year, month, day).strftime("%Y-%m-%d")
+    except ValueError:
+        return datetime.today().strftime("%Y-%m-%d")
 
 
 def process_excel(input_excel: str, output_dir: str) -> str:
@@ -74,6 +128,12 @@ def process_excel(input_excel: str, output_dir: str) -> str:
         df["Patient First Name"] = normalize_string(df["Patient First Name"])
         df["Patient E-mail"] = clean_email(df["Patient E-mail"])
         df[PROVIDER_COL] = normalize_string(df[PROVIDER_COL])
+
+        # -----------------------------
+        # Appointment date from filename
+        # -----------------------------
+        appt_date = _extract_appt_date_from_filename(input_excel)
+        df[APPT_DATE_COL] = appt_date
 
         # -----------------------------
         # Output directories
