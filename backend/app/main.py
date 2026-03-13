@@ -5,6 +5,7 @@ from pathlib import Path
 import shutil
 
 from app.processor import process_excel
+from app.google_sheet import append_new_patients
 from app.utils import logger
 
 app = FastAPI()
@@ -47,7 +48,9 @@ async def upload_excel(file: UploadFile = File(...)):
         with open(file_path, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
 
-        zip_path = process_excel(str(file_path), str(OUTPUT_DIR))
+        zip_path, clean_df = process_excel(str(file_path), str(OUTPUT_DIR))
+
+        append_new_patients(clean_df)
 
         return FileResponse(
             zip_path,

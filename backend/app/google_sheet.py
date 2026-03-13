@@ -49,11 +49,7 @@ def _extract_sheet_id():
 
 def _get_sheet():
     try:
-        logger.info(f"Service account: {creds.service_account_email}")
-        logger.info(f"Sheet URL: {SHEET_URL}")
-        logger.info(f"Sheet name: {SHEET_NAME}")
         sheet_id = _extract_sheet_id()
-        logger.info(f"Sheet ID: {sheet_id}")
         return client.open_by_key(sheet_id).worksheet(SHEET_NAME)
     except SpreadsheetNotFound as exc:
         raise ValueError(
@@ -65,14 +61,12 @@ def read_master():
     logger.info("Reading master sheet")
     sheet = _get_sheet()
     data = sheet.get_all_records()
-    logger.info(f"Rows in master sheet: {len(data)}")
     return pd.DataFrame(data)
 
 
 def save_master(df):
     logger.info("Saving master sheet")
     sheet = _get_sheet()
-    logger.info(f"Writing rows to master sheet: {len(df)}")
 
     if df.empty:
         sheet.clear()

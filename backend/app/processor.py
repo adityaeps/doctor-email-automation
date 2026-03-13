@@ -72,7 +72,7 @@ def _extract_appt_date_from_filename(path: str) -> str:
         return datetime.today().strftime("%Y-%m-%d")
 
 
-def process_excel(input_excel: str, output_dir: str) -> str:
+def process_excel(input_excel: str, output_dir: str):
     try:
         logger.info(f"Started processing file: {input_excel}")
         # Extract filename stem to append to doctor filenames
@@ -202,7 +202,7 @@ def process_excel(input_excel: str, output_dir: str) -> str:
         logger.info("ZIP file created successfully")
         logger.info("Processing completed successfully")
 
-        return zip_path
+        return zip_path, df
 
     except Exception:
         logger.exception("❌ Error occurred while processing excel")
