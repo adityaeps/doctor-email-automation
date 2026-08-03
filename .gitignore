@@ -16,3 +16,6 @@ node_modules/
 
 # Local secrets
 backend/old_credentials.json
+
+.env
+backend/.env
