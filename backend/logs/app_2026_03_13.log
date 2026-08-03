@@ -1,0 +1,12 @@
+2026-03-13 12:21:53,418 | INFO | File received: 01 06.xlsx
+2026-03-13 12:21:53,419 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/01 06.xlsx
+2026-03-13 12:21:53,498 | INFO | Excel loaded successfully. Rows: 54
+2026-03-13 12:21:53,502 | INFO | Dropped 6 invalid rows
+2026-03-13 12:21:53,506 | INFO | Created file for doctor 'Bice, Jamie' with 20 records
+2026-03-13 12:21:53,507 | INFO | Created file for doctor 'Nguyen, Jeffrey' with 24 records
+2026-03-13 12:21:53,507 | INFO | Created combined all_doctors.csv
+2026-03-13 12:21:53,514 | INFO | ZIP file created successfully
+2026-03-13 12:21:53,514 | INFO | Processing completed successfully
+2026-03-13 12:21:53,515 | INFO | Reading master sheet
+2026-03-13 12:21:57,020 | INFO | Adding 44 new patients
+2026-03-13 12:21:57,021 | INFO | Saving master sheet

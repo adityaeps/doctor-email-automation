@@ -1,0 +1,28 @@
+2026-08-03 18:31:17,109 | INFO | File received: 07 28.xlsx
+2026-08-03 18:31:17,110 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/07 28.xlsx
+2026-08-03 18:31:17,245 | INFO | Header found at Excel row 9
+2026-08-03 18:31:17,253 | INFO | Excel loaded successfully using header row 9. Rows: 67
+2026-08-03 18:31:17,253 | INFO | Excel loaded successfully. Rows: 67
+2026-08-03 18:31:17,258 | INFO | Dropped 6 invalid rows
+2026-08-03 18:31:17,263 | INFO | Created file for doctor 'Bice, Jamie' with 22 records
+2026-08-03 18:31:17,263 | INFO | Created file for doctor 'KAR, JITESH K' with 6 records
+2026-08-03 18:31:17,264 | INFO | Created file for doctor 'Nguyen, Jeffrey QUOC-HUNG' with 29 records
+2026-08-03 18:31:17,265 | INFO | Created combined all_doctors.csv
+2026-08-03 18:31:17,273 | INFO | ZIP file created successfully
+2026-08-03 18:31:17,273 | INFO | Processing completed successfully
+2026-08-03 18:31:17,273 | INFO | Reading master sheet
+2026-08-03 18:31:20,726 | INFO | Adding 15 new patients
+2026-08-03 18:31:20,727 | INFO | Saving master sheet
+2026-08-03 18:31:39,412 | INFO | File received: 07 27.xlsx
+2026-08-03 18:31:39,413 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/07 27.xlsx
+2026-08-03 18:31:39,421 | INFO | Header found at Excel row 10
+2026-08-03 18:31:39,428 | INFO | Excel loaded successfully using header row 10. Rows: 40
+2026-08-03 18:31:39,428 | INFO | Excel loaded successfully. Rows: 40
+2026-08-03 18:31:39,429 | INFO | Dropped 1 invalid rows
+2026-08-03 18:31:39,431 | INFO | Created file for doctor 'KAR, JITESH K' with 8 records
+2026-08-03 18:31:39,431 | INFO | Created file for doctor 'Nguyen, Jeffrey QUOC-HUNG' with 27 records
+2026-08-03 18:31:39,432 | INFO | Created combined all_doctors.csv
+2026-08-03 18:31:39,439 | INFO | ZIP file created successfully
+2026-08-03 18:31:39,439 | INFO | Processing completed successfully
+2026-08-03 18:31:39,439 | INFO | Reading master sheet
+2026-08-03 18:31:40,980 | INFO | No new patients found
