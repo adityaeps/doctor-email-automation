@@ -1,62 +1,345 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Doctor Email Automation</title>
-    <link rel="stylesheet" href="/static/style.css">
-</head>
-<body>
-
-<div class="container">
-    <h2>Doctor Email Automation</h2>
-    <p>Upload the raw excel file and download doctor-wise output files.</p>
-
-    <!-- File Upload -->
-    <!-- <input type="file" id="fileInput" accept=".xlsx, .xls" /> -->
-
-    <!-- Buttons -->
-    <!-- <div class="buttons">
-        <button id="uploadBtn" onclick="uploadFile()">Upload</button>
-        <button id="downloadBtn" disabled>Download Output</button>
-    </div>
-
-    <!-- Status -->
-    <!-- <p id="status"></p>
-</div>
-
-<script src="/static/script.js"></script>
-</body>
-</html> --> 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Doctor Email Automation</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Doctor Email Automation</title>
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="/static/favicon.ico">
 
-    <link rel="stylesheet" href="/static/style.css">
+<style>
+    :root {
+        --brand: #0073AA;
+        --brand-dark: #005177;
+        --brand-deep: #003D5B;
+        --brand-tint: #E7F2F8;
+        --brand-wash: #F2F8FB;
+        --ink: #1B2A33;
+        --muted: #5F7382;
+        --border: #D9E7EF;
+        --success: #0F7A3D;
+        --error: #C0392B;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+        padding: 32px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        color: var(--ink);
+        background: var(--brand-wash);
+        position: relative;
+        overflow-x: hidden;
+    }
+
+    /* Decorative background shapes */
+    body::before,
+    body::after {
+        content: "";
+        position: fixed;
+        border-radius: 50%;
+        z-index: 0;
+        pointer-events: none;
+    }
+    body::before {
+        width: 460px;
+        height: 460px;
+        top: -180px;
+        left: -140px;
+        background: radial-gradient(circle at 30% 30%, rgba(0, 115, 170, 0.18), rgba(0, 115, 170, 0) 70%);
+    }
+    body::after {
+        width: 520px;
+        height: 520px;
+        bottom: -220px;
+        right: -180px;
+        background: radial-gradient(circle at 60% 60%, rgba(0, 81, 119, 0.16), rgba(0, 81, 119, 0) 70%);
+    }
+
+    .card {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 460px;
+        background: #ffffff;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 24px 48px -16px rgba(0, 61, 91, 0.28),
+                    0 2px 6px rgba(0, 61, 91, 0.06);
+    }
+
+    /* ---------- Header ---------- */
+    .card-header {
+        position: relative;
+        overflow: hidden;
+        padding: 34px 30px 30px;
+        text-align: center;
+        color: #ffffff;
+        background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 60%, var(--brand-deep) 100%);
+    }
+
+    /* Header decorative arcs */
+    .card-header::before,
+    .card-header::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        border: 1.5px solid rgba(255, 255, 255, 0.16);
+    }
+    .card-header::before {
+        width: 220px; height: 220px;
+        top: -120px; right: -60px;
+    }
+    .card-header::after {
+        width: 160px; height: 160px;
+        bottom: -100px; left: -50px;
+        background: rgba(255, 255, 255, 0.06);
+        border: none;
+    }
+
+    .brand-mark {
+        position: relative;
+        width: 58px;
+        height: 58px;
+        margin: 0 auto 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.32);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    }
+    .brand-mark svg { width: 28px; height: 28px; }
+
+    .card-header h1 {
+        position: relative;
+        margin: 0 0 8px;
+        font-size: 22px;
+        line-height: 1.25;
+        font-weight: 700;
+        letter-spacing: -0.015em;
+        text-shadow: 0 1px 2px rgba(0, 40, 60, 0.25);
+    }
+
+    .card-header .subtitle {
+        position: relative;
+        margin: 0 auto;
+        max-width: 320px;
+        font-size: 13.5px;
+        line-height: 1.55;
+        color: rgba(255, 255, 255, 0.88);
+    }
+
+    /* ---------- Body ---------- */
+    .card-body { padding: 26px 30px 30px; }
+
+    .field-label {
+        display: block;
+        margin: 0 0 10px;
+        font-size: 11.5px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--brand-dark);
+    }
+
+    .file-drop {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 16px;
+        border: 1.5px dashed #B3D3E4;
+        border-radius: 12px;
+        background: var(--brand-tint);
+        cursor: pointer;
+        transition: border-color .15s ease, background .15s ease, box-shadow .15s ease;
+    }
+    .file-drop:hover {
+        border-color: var(--brand);
+        background: #DCEDF6;
+    }
+    .file-drop:focus-within {
+        outline: none;
+        border-color: var(--brand);
+        box-shadow: 0 0 0 3px rgba(0, 115, 170, 0.18);
+    }
+    .file-drop.has-file {
+        border-style: solid;
+        border-color: var(--brand);
+        background: #DCEDF6;
+    }
+
+    .file-drop-icon {
+        flex: none;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: #ffffff;
+        color: var(--brand);
+        box-shadow: 0 1px 3px rgba(0, 81, 119, 0.15);
+    }
+    .file-drop-icon svg { width: 20px; height: 20px; }
+
+    .file-drop-text {
+        min-width: 0;
+        text-align: left;
+    }
+    .file-drop-title {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--brand-dark);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .file-drop-hint {
+        display: block;
+        margin-top: 2px;
+        font-size: 12px;
+        color: var(--muted);
+    }
+
+    /* ---------- Buttons ---------- */
+    .buttons {
+        margin-top: 18px;
+        display: flex;
+        gap: 10px;
+    }
+
+    .btn {
+        flex: 1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 13px 14px;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1;
+        border: 1.5px solid transparent;
+        border-radius: 11px;
+        cursor: pointer;
+        transition: background .15s ease, border-color .15s ease, box-shadow .15s ease, transform .06s ease;
+    }
+    .btn svg { width: 17px; height: 17px; flex: none; }
+    .btn:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(0, 115, 170, 0.3);
+    }
+    .btn:active:not(:disabled) { transform: translateY(1px); }
+
+    .btn-primary {
+        background: var(--brand);
+        color: #ffffff;
+        box-shadow: 0 6px 14px -4px rgba(0, 115, 170, 0.55);
+    }
+    .btn-primary:hover:not(:disabled) { background: var(--brand-dark); }
+
+    .btn-secondary {
+        background: #ffffff;
+        color: var(--brand);
+        border-color: var(--border);
+    }
+    .btn-secondary:hover:not(:disabled) {
+        border-color: var(--brand);
+        background: var(--brand-tint);
+    }
+
+    .btn:disabled {
+        cursor: not-allowed;
+        opacity: .45;
+        box-shadow: none;
+    }
+
+    /* ---------- Status ---------- */
+    #status {
+        margin: 18px 0 0;
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 1.5;
+        text-align: center;
+        color: var(--muted);
+    }
+    #status:empty { margin: 0; }
+    #status.success { color: var(--success); }
+    #status.error   { color: var(--error); }
+
+    @media (max-width: 400px) {
+        .card-header { padding: 28px 22px 24px; }
+        .card-body   { padding: 22px 22px 26px; }
+        .buttons     { flex-direction: column; }
+    }
+</style>
 </head>
 <body>
 
-<div class="container">
-    <h2>Doctor Email Automation</h2>
-    <p>Upload the raw excel file and download doctor-wise output files.</p>
+<main class="card">
 
-    <!-- File Upload -->
-    <input type="file" id="fileInput" accept=".xlsx, .xls" />
+    <header class="card-header">
+        <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2.5" y="5" width="19" height="14" rx="2.5" stroke="currentColor" stroke-width="1.7"/>
+                <path d="M3.6 6.6 12 12.8l8.4-6.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        <h1>Doctor Email Automation</h1>
+        <p class="subtitle">Upload the raw excel file and download doctor-wise output files.</p>
+    </header>
 
-    <!-- Buttons -->
-    <div class="buttons">
-        <button id="uploadBtn" onclick="uploadFile()">Upload</button>
-        <button id="downloadBtn" disabled>Download Output</button>
+    <div class="card-body">
+
+        <!-- File Upload -->
+        <span class="field-label">Select file</span>
+
+        <label for="fileInput" class="file-drop" id="fileDropLabel">
+            <span class="file-drop-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 15.5V4.5M12 4.5 8 8.5M12 4.5l4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M4.5 15v3a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+            <span class="file-drop-text">
+                <span class="file-drop-title" id="fileLabelText">Choose a file to upload</span>
+                <span class="file-drop-hint">Excel format only &mdash; .xlsx or .xls</span>
+            </span>
+        </label>
+        <input type="file" id="fileInput" accept=".xlsx, .xls" hidden />
+
+        <!-- Buttons -->
+        <div class="buttons">
+            <button id="uploadBtn" type="button" class="btn btn-primary" onclick="uploadFile()">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M12 16V5M12 5 7.5 9.5M12 5l4.5 4.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M4.5 16v2.5A2.5 2.5 0 0 0 7 21h10a2.5 2.5 0 0 0 2.5-2.5V16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Upload
+            </button>
+            <button id="downloadBtn" type="button" class="btn btn-secondary" disabled>
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M12 5v11M12 16l4.5-4.5M12 16 7.5 11.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M4.5 16v2.5A2.5 2.5 0 0 0 7 21h10a2.5 2.5 0 0 0 2.5-2.5V16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Download Output
+            </button>
+        </div>
+
+        <!-- Status -->
+        <p id="status" role="status" aria-live="polite"></p>
+
     </div>
-
-    <!-- Status -->
-    <p id="status"></p>
-</div>
+</main>
 
 <script src="/static/script.js"></script>
 </body>

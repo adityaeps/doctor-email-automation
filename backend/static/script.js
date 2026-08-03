@@ -1,3 +1,17 @@
+document.getElementById("fileInput").addEventListener("change", () => {
+    const fileInput = document.getElementById("fileInput");
+    const label = document.getElementById("fileDropLabel");
+    const labelText = document.getElementById("fileLabelText");
+
+    if (fileInput.files && fileInput.files.length > 0) {
+        labelText.textContent = fileInput.files[0].name;
+        label.classList.add("has-file");
+    } else {
+        labelText.textContent = "Choose a file to upload";
+        label.classList.remove("has-file");
+    }
+});
+
 async function uploadFile() {
     const fileInput = document.getElementById("fileInput");
     const status = document.getElementById("status");
@@ -15,6 +29,7 @@ async function uploadFile() {
     formData.append("file", file);
 
     // UI feedback
+    status.className = "";
     status.innerText = "⏳ Uploading and processing file...";
 
     try {
@@ -45,10 +60,12 @@ async function uploadFile() {
         window.URL.revokeObjectURL(downloadUrl);
 
         // Success message
+        status.className = "success";
         status.innerText = "✅ File processed successfully. Download started.";
 
     } catch (error) {
         console.error("Frontend upload error:", error);
+        status.className = "error";
         status.innerText =
             "❌ Upload failed on frontend. Backend logs may still show success.";
     }
