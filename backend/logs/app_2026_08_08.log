@@ -1,0 +1,14 @@
+2026-08-08 16:45:13,943 | INFO | File received: 07 28.xlsx
+2026-08-08 16:45:13,944 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/07 28.xlsx
+2026-08-08 16:45:14,034 | INFO | Header found at Excel row 9
+2026-08-08 16:45:14,041 | INFO | Excel loaded successfully using header row 9. Rows: 67
+2026-08-08 16:45:14,041 | INFO | Excel loaded successfully. Rows: 67
+2026-08-08 16:45:14,050 | INFO | Dropped 6 invalid rows
+2026-08-08 16:45:14,052 | INFO | Removed 22 patients belonging to excluded providers.
+2026-08-08 16:45:14,055 | INFO | Created file for doctor 'KAR, JITESH K' with 6 records
+2026-08-08 16:45:14,056 | INFO | Created file for doctor 'Nguyen, Jeffrey QUOC-HUNG' with 29 records
+2026-08-08 16:45:14,057 | INFO | Created combined all_doctors.csv
+2026-08-08 16:45:14,063 | INFO | ZIP file created successfully
+2026-08-08 16:45:14,063 | INFO | Processing completed successfully
+2026-08-08 16:45:14,063 | INFO | Reading master sheet
+2026-08-08 16:45:21,175 | INFO | No new patients found

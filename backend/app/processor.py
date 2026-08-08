@@ -177,6 +177,23 @@ def process_excel(input_excel: str, output_dir: str):
         df[PROVIDER_COL] = normalize_string(df[PROVIDER_COL])
 
         # -----------------------------
+        # Remove patients of excluded provider
+        # -----------------------------
+        EXCLUDED_PROVIDERS = [
+            "Bice, Jamie"
+        ]
+
+        before = len(df)
+
+        df = df[
+            ~df[PROVIDER_COL].isin(EXCLUDED_PROVIDERS)
+        ].copy()
+
+        logger.info(
+            f"Removed {before - len(df)} patients belonging to excluded providers."
+        )
+
+        # -----------------------------
         # Appointment date from filename
         # -----------------------------
         appt_date = _extract_appt_date_from_filename(input_excel)
