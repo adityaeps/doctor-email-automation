@@ -94,57 +94,205 @@ def save_master(df):
     sheet.update([df.columns.values.tolist()] + df.values.tolist())
 
 
+# def append_new_patients(clean_df):
+#     master = read_master()
+
+#     if master.empty:
+#         master = pd.DataFrame(columns=MASTER_COLUMNS)
+
+#     # Build unique keys for existing records
+#     if not master.empty:
+#         master["Unique Key"] = (
+#             master["Patient First Name"].astype(str).str.strip().str.lower()
+#             + "|"
+#             + master["Patient Email"].astype(str).str.strip().str.lower()
+#             + "|"
+#             + master["Appointment Provider Name"].astype(str).str.strip().str.lower()
+#             + "|"
+#             + master["Appointment Date"].astype(str).str.strip()
+#         )
+
+#         existing_keys = set(master["Unique Key"])
+#     else:
+#         existing_keys = set()
+
+
+#     today = datetime.today().strftime("%Y-%m-%d")
+
+#     if "Appointment Date" not in clean_df.columns:
+#         clean_df["Appointment Date"] = today
+
+#     # Ensure expected columns exist
+#     for col in MASTER_COLUMNS:
+#         if col not in master.columns:
+#             master[col] = ""
+
+#     #existing_emails = set(master["Email"].astype(str).str.lower().values)
+#     srn_series = pd.to_numeric(master["SRN"], errors="coerce")
+#     next_srn = int(srn_series.max()) + 1 if srn_series.notna().any() else 1
+
+#     new_rows = []
+
+#     for _, row in clean_df.iterrows():
+
+#         email = row.get("Patient E-mail") or row.get("Patient Email")
+
+#         if not email:
+#             continue
+
+#         email = str(email).strip().lower()
+#         provider = str(row.get("Appointment Provider Name", "")).strip()
+#         if not provider:
+#             provider = "NIH"
+
+#         # if email and email not in existing_emails:
+#         #     new_rows.append([
+#         #         next_srn,
+#         #         row.get("Patient First Name"),
+#         #         email,
+#         #         provider,
+#         #         row.get("Appointment Date", today),
+#         #     ])
+#         #     next_srn += 1
+
+#     if new_rows:
+#         logger.info(f"Adding {len(new_rows)} new patients")
+
+#         new_df = pd.DataFrame(new_rows, columns=MASTER_COLUMNS)
+#         master = pd.concat([master, new_df], ignore_index=True)
+#         master = master[MASTER_COLUMNS]
+#         save_master(master)
+#     else:
+#         logger.info("No new patients found")
+
+#     return master
+
+
 def append_new_patients(clean_df):
     master = read_master()
 
     if master.empty:
         master = pd.DataFrame(columns=MASTER_COLUMNS)
 
-    today = datetime.today().strftime("%Y-%m-%d")
-
-    if "Appointment Date" not in clean_df.columns:
-        clean_df["Appointment Date"] = today
-
-    # Ensure expected columns exist
+    # Ensure all expected columns exist
     for col in MASTER_COLUMNS:
         if col not in master.columns:
             master[col] = ""
 
-    existing_emails = set(master["Email"].astype(str).str.lower().values)
-    srn_series = pd.to_numeric(master["SRN"], errors="coerce")
-    next_srn = int(srn_series.max()) + 1 if srn_series.notna().any() else 1
+    # -----------------------------
+    # Normalize Master Sheet
+    # -----------------------------
+    master["Name"] = master["Name"].astype(str).str.strip()
+    master["Email"] = master["Email"].astype(str).str.strip().str.lower()
+    master["Doc Name"] = master["Doc Name"].astype(str).str.strip()
 
+    master["Date"] = (
+        pd.to_datetime(master["Date"], errors="coerce")
+        .dt.strftime("%Y-%m-%d")
+        .fillna("")
+    )
+
+    # -----------------------------
+    # Build Existing Keys
+    # -----------------------------
+    existing_keys = set()
+
+    for _, row in master.iterrows():
+        existing_keys.add((
+            row["Name"].lower(),
+            row["Email"],
+            row["Doc Name"].lower(),
+            row["Date"]
+        ))
+
+    # -----------------------------
+    # Next SRN
+    # -----------------------------
+    srn = pd.to_numeric(master["SRN"], errors="coerce")
+
+    if srn.notna().any():
+        next_srn = int(srn.max()) + 1
+    else:
+        next_srn = 1
+
+    # -----------------------------
+    # Add New Patients
+    # -----------------------------
     new_rows = []
 
     for _, row in clean_df.iterrows():
 
-        email = row.get("Patient E-mail") or row.get("Patient Email")
+        patient_name = str(
+            row.get("Patient First Name", "")
+        ).strip()
 
-        if not email:
+        email = str(
+            row.get("Patient E-mail")
+            or row.get("Patient Email")
+            or ""
+        ).strip().lower()
+
+        provider = str(
+            row.get("Appointment Provider Name", "")
+        ).strip()
+
+        appointment_date = (
+            pd.to_datetime(
+                row.get("Appointment Date", ""),
+                errors="coerce"
+            )
+            .strftime("%Y-%m-%d")
+            if pd.notna(pd.to_datetime(row.get("Appointment Date", ""), errors="coerce"))
+            else ""
+        )
+
+        if not patient_name or not email:
             continue
 
-        email = str(email).strip().lower()
-        provider = str(row.get("Appointment Provider Name", "")).strip()
-        if not provider:
-            provider = "NIH"
+        unique_key = (
+            patient_name.lower(),
+            email,
+            provider.lower(),
+            appointment_date
+        )
 
-        if email and email not in existing_emails:
-            new_rows.append([
-                next_srn,
-                row.get("Patient First Name"),
-                email,
-                provider,
-                row.get("Appointment Date", today),
-            ])
-            next_srn += 1
+        # Skip duplicate
+        if unique_key in existing_keys:
+            logger.info(f"Duplicate skipped: {patient_name} | {email}")
+            continue
 
+        existing_keys.add(unique_key)
+
+        new_rows.append([
+            next_srn,
+            patient_name,
+            email,
+            provider,
+            appointment_date
+        ])
+
+        next_srn += 1
+
+    # -----------------------------
+    # Save
+    # -----------------------------
     if new_rows:
         logger.info(f"Adding {len(new_rows)} new patients")
 
-        new_df = pd.DataFrame(new_rows, columns=MASTER_COLUMNS)
-        master = pd.concat([master, new_df], ignore_index=True)
+        new_df = pd.DataFrame(
+            new_rows,
+            columns=MASTER_COLUMNS
+        )
+
+        master = pd.concat(
+            [master, new_df],
+            ignore_index=True
+        )
+
         master = master[MASTER_COLUMNS]
+
         save_master(master)
+
     else:
         logger.info("No new patients found")
 

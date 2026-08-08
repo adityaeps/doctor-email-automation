@@ -12,3 +12,156 @@
 2026-08-08 16:45:14,063 | INFO | Processing completed successfully
 2026-08-08 16:45:14,063 | INFO | Reading master sheet
 2026-08-08 16:45:21,175 | INFO | No new patients found
+2026-08-08 17:05:37,057 | INFO | File received: 07 28.xlsx
+2026-08-08 17:05:37,057 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/07 28.xlsx
+2026-08-08 17:05:37,137 | INFO | Header found at Excel row 9
+2026-08-08 17:05:37,143 | INFO | Excel loaded successfully using header row 9. Rows: 67
+2026-08-08 17:05:37,143 | INFO | Excel loaded successfully. Rows: 67
+2026-08-08 17:05:37,145 | INFO | Dropped 6 invalid rows
+2026-08-08 17:05:37,147 | INFO | Removed 22 patients belonging to excluded providers.
+2026-08-08 17:05:37,149 | INFO | Created file for doctor 'KAR, JITESH K' with 6 records
+2026-08-08 17:05:37,150 | INFO | Created file for doctor 'Nguyen, Jeffrey QUOC-HUNG' with 29 records
+2026-08-08 17:05:37,151 | INFO | Created combined all_doctors.csv
+2026-08-08 17:05:37,159 | INFO | ZIP file created successfully
+2026-08-08 17:05:37,159 | INFO | Processing completed successfully
+2026-08-08 17:05:37,159 | INFO | Reading master sheet
+2026-08-08 17:05:39,807 | ERROR | Upload failed
+Traceback (most recent call last):
+  File "/Users/aditya/doctor-email-automation/.venv/lib/python3.14/site-packages/pandas/core/indexes/base.py", line 3812, in get_loc
+    return self._engine.get_loc(casted_key)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7096, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'Patient First Name'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/aditya/doctor-email-automation/backend/app/main.py", line 53, in upload_excel
+    append_new_patients(clean_df)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/Users/aditya/doctor-email-automation/backend/app/google_sheet.py", line 190, in append_new_patients
+    str(row["Patient First Name"]).strip().lower()
+        ~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/aditya/doctor-email-automation/.venv/lib/python3.14/site-packages/pandas/core/series.py", line 1133, in __getitem__
+    return self._get_value(key)
+           ~~~~~~~~~~~~~~~^^^^^
+  File "/Users/aditya/doctor-email-automation/.venv/lib/python3.14/site-packages/pandas/core/series.py", line 1249, in _get_value
+    loc = self.index.get_loc(label)
+  File "/Users/aditya/doctor-email-automation/.venv/lib/python3.14/site-packages/pandas/core/indexes/base.py", line 3819, in get_loc
+    raise KeyError(key) from err
+KeyError: 'Patient First Name'
+2026-08-08 17:11:43,847 | INFO | File received: 07 28.xlsx
+2026-08-08 17:11:43,849 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/07 28.xlsx
+2026-08-08 17:11:43,933 | INFO | Header found at Excel row 9
+2026-08-08 17:11:43,939 | INFO | Excel loaded successfully using header row 9. Rows: 67
+2026-08-08 17:11:43,939 | INFO | Excel loaded successfully. Rows: 67
+2026-08-08 17:11:43,941 | INFO | Dropped 6 invalid rows
+2026-08-08 17:11:43,942 | INFO | Removed 22 patients belonging to excluded providers.
+2026-08-08 17:11:43,945 | INFO | Created file for doctor 'KAR, JITESH K' with 6 records
+2026-08-08 17:11:43,946 | INFO | Created file for doctor 'Nguyen, Jeffrey QUOC-HUNG' with 29 records
+2026-08-08 17:11:43,947 | INFO | Created combined all_doctors.csv
+2026-08-08 17:11:43,953 | INFO | ZIP file created successfully
+2026-08-08 17:11:43,953 | INFO | Processing completed successfully
+2026-08-08 17:11:43,953 | INFO | Reading master sheet
+2026-08-08 17:11:46,197 | INFO | Adding 34 new patients
+2026-08-08 17:11:46,198 | INFO | Saving master sheet
+2026-08-08 17:38:20,318 | INFO | File received: 07 28.xlsx
+2026-08-08 17:38:20,319 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/07 28.xlsx
+2026-08-08 17:38:20,394 | INFO | Header found at Excel row 9
+2026-08-08 17:38:20,401 | INFO | Excel loaded successfully using header row 9. Rows: 67
+2026-08-08 17:38:20,401 | INFO | Excel loaded successfully. Rows: 67
+2026-08-08 17:38:20,404 | INFO | Dropped 6 invalid rows
+2026-08-08 17:38:20,407 | INFO | Removed 22 patients belonging to excluded providers.
+2026-08-08 17:38:20,409 | INFO | Created file for doctor 'KAR, JITESH K' with 6 records
+2026-08-08 17:38:20,410 | INFO | Created file for doctor 'Nguyen, Jeffrey QUOC-HUNG' with 29 records
+2026-08-08 17:38:20,411 | INFO | Created combined all_doctors.csv
+2026-08-08 17:38:20,417 | INFO | ZIP file created successfully
+2026-08-08 17:38:20,417 | INFO | Processing completed successfully
+2026-08-08 17:38:20,417 | INFO | Reading master sheet
+2026-08-08 17:38:22,690 | INFO | Duplicate skipped: Angela | areablank1@aol.com
+2026-08-08 17:38:22,694 | INFO | Adding 34 new patients
+2026-08-08 17:38:22,695 | INFO | Saving master sheet
+2026-08-08 17:39:14,078 | INFO | File received: 07 28.xlsx
+2026-08-08 17:39:14,079 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/07 28.xlsx
+2026-08-08 17:39:14,098 | INFO | Header found at Excel row 9
+2026-08-08 17:39:14,124 | INFO | Excel loaded successfully using header row 9. Rows: 67
+2026-08-08 17:39:14,124 | INFO | Excel loaded successfully. Rows: 67
+2026-08-08 17:39:14,125 | INFO | Dropped 6 invalid rows
+2026-08-08 17:39:14,126 | INFO | Removed 22 patients belonging to excluded providers.
+2026-08-08 17:39:14,128 | INFO | Created file for doctor 'KAR, JITESH K' with 6 records
+2026-08-08 17:39:14,128 | INFO | Created file for doctor 'Nguyen, Jeffrey QUOC-HUNG' with 29 records
+2026-08-08 17:39:14,129 | INFO | Created combined all_doctors.csv
+2026-08-08 17:39:14,135 | INFO | ZIP file created successfully
+2026-08-08 17:39:14,135 | INFO | Processing completed successfully
+2026-08-08 17:39:14,135 | INFO | Reading master sheet
+2026-08-08 17:39:15,806 | INFO | Duplicate skipped: Angela | areablank1@aol.com
+2026-08-08 17:39:15,811 | INFO | Adding 34 new patients
+2026-08-08 17:39:15,811 | INFO | Saving master sheet
+2026-08-08 17:47:20,745 | INFO | File received: 07 28.xlsx
+2026-08-08 17:47:20,746 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/07 28.xlsx
+2026-08-08 17:47:20,758 | INFO | Header found at Excel row 9
+2026-08-08 17:47:20,764 | INFO | Excel loaded successfully using header row 9. Rows: 67
+2026-08-08 17:47:20,764 | INFO | Excel loaded successfully. Rows: 67
+2026-08-08 17:47:20,766 | INFO | Dropped 6 invalid rows
+2026-08-08 17:47:20,768 | INFO | Removed 22 patients belonging to excluded providers.
+2026-08-08 17:47:20,770 | INFO | Created file for doctor 'KAR, JITESH K' with 6 records
+2026-08-08 17:47:20,771 | INFO | Created file for doctor 'Nguyen, Jeffrey QUOC-HUNG' with 29 records
+2026-08-08 17:47:20,772 | INFO | Created combined all_doctors.csv
+2026-08-08 17:47:20,780 | INFO | ZIP file created successfully
+2026-08-08 17:47:20,780 | INFO | Processing completed successfully
+2026-08-08 17:47:20,780 | INFO | Reading master sheet
+2026-08-08 17:47:23,204 | INFO | Duplicate skipped: Angela | areablank1@aol.com
+2026-08-08 17:47:23,208 | INFO | Adding 34 new patients
+2026-08-08 17:47:23,209 | INFO | Saving master sheet
+2026-08-08 17:47:37,747 | INFO | File received: 07 28.xlsx
+2026-08-08 17:47:37,748 | INFO | Started processing file: /Users/aditya/doctor-email-automation/backend/uploads/07 28.xlsx
+2026-08-08 17:47:37,762 | INFO | Header found at Excel row 9
+2026-08-08 17:47:37,770 | INFO | Excel loaded successfully using header row 9. Rows: 67
+2026-08-08 17:47:37,770 | INFO | Excel loaded successfully. Rows: 67
+2026-08-08 17:47:37,772 | INFO | Dropped 6 invalid rows
+2026-08-08 17:47:37,773 | INFO | Removed 22 patients belonging to excluded providers.
+2026-08-08 17:47:37,775 | INFO | Created file for doctor 'KAR, JITESH K' with 6 records
+2026-08-08 17:47:37,775 | INFO | Created file for doctor 'Nguyen, Jeffrey QUOC-HUNG' with 29 records
+2026-08-08 17:47:37,776 | INFO | Created combined all_doctors.csv
+2026-08-08 17:47:37,783 | INFO | ZIP file created successfully
+2026-08-08 17:47:37,783 | INFO | Processing completed successfully
+2026-08-08 17:47:37,783 | INFO | Reading master sheet
+2026-08-08 17:47:39,861 | INFO | Duplicate skipped: Jorge | giorgio.pena.gp@gmail.com
+2026-08-08 17:47:39,862 | INFO | Duplicate skipped: Michael Lee | frentatee@gmail.com
+2026-08-08 17:47:39,862 | INFO | Duplicate skipped: Jonathan | johnjw101@yahoo.com
+2026-08-08 17:47:39,862 | INFO | Duplicate skipped: Faynell | fpainter35@gmail.com
+2026-08-08 17:47:39,862 | INFO | Duplicate skipped: Angela | areablank1@aol.com
+2026-08-08 17:47:39,863 | INFO | Duplicate skipped: James | james122442@bellosouth.net
+2026-08-08 17:47:39,863 | INFO | Duplicate skipped: Jason | jason.maxwell83@gmail.com
+2026-08-08 17:47:39,863 | INFO | Duplicate skipped: Karen | bheughan@me.com
+2026-08-08 17:47:39,863 | INFO | Duplicate skipped: Jennifer | bugs7_8@hotmail.com
+2026-08-08 17:47:39,864 | INFO | Duplicate skipped: Magen | magenmorris91@gmail.com
+2026-08-08 17:47:39,864 | INFO | Duplicate skipped: Jerry | jerry.toni.gipson@gmail.com
+2026-08-08 17:47:39,864 | INFO | Duplicate skipped: Faye | hcstboi@gmail.com
+2026-08-08 17:47:39,864 | INFO | Duplicate skipped: Jalyn | powelljalyn1997@gmail.com
+2026-08-08 17:47:39,865 | INFO | Duplicate skipped: Jamie | jamie.sledge@yahoo.com
+2026-08-08 17:47:39,865 | INFO | Duplicate skipped: Tena | bacci.darby@gmail.com
+2026-08-08 17:47:39,865 | INFO | Duplicate skipped: Angela | areablank1@aol.com
+2026-08-08 17:47:39,866 | INFO | Duplicate skipped: Tracey | traceyentler@gmail.com
+2026-08-08 17:47:39,866 | INFO | Duplicate skipped: Roy | rlpope1906@gmail.com
+2026-08-08 17:47:39,866 | INFO | Duplicate skipped: Linda | lindy55122@gmail.com
+2026-08-08 17:47:39,866 | INFO | Duplicate skipped: Calliope | calwalls2020@gmail.com
+2026-08-08 17:47:39,867 | INFO | Duplicate skipped: Linda | mrsswampy1988@aol.com
+2026-08-08 17:47:39,867 | INFO | Duplicate skipped: Madeline | madelinekwhite@gmal.com
+2026-08-08 17:47:39,867 | INFO | Duplicate skipped: Wanda | wuzaboat@yahoo.com
+2026-08-08 17:47:39,867 | INFO | Duplicate skipped: Sandy Ray | jamiewi2000@yahoo.com
+2026-08-08 17:47:39,868 | INFO | Duplicate skipped: Dennis | dennismcmahan@gmail.com
+2026-08-08 17:47:39,868 | INFO | Duplicate skipped: Long | biendong_17@yahoo.com
+2026-08-08 17:47:39,869 | INFO | Duplicate skipped: Raven | brownraven422@gmail.com
+2026-08-08 17:47:39,869 | INFO | Duplicate skipped: Robert Francis | bob.rettman@gmail.com
+2026-08-08 17:47:39,869 | INFO | Duplicate skipped: Gloria | yvette_2_2002@yahoo.com
+2026-08-08 17:47:39,870 | INFO | Duplicate skipped: Kelly | kelly.rohacek@gmail.com
+2026-08-08 17:47:39,870 | INFO | Duplicate skipped: Diannia | kbrobinson1919221@outlook.com
+2026-08-08 17:47:39,870 | INFO | Duplicate skipped: Patrice | hurtpatrice@yahoo.com
+2026-08-08 17:47:39,871 | INFO | Duplicate skipped: Megan | megdet77@gmail.com
+2026-08-08 17:47:39,871 | INFO | Duplicate skipped: Theresa | mastinta@comcast.net
+2026-08-08 17:47:39,871 | INFO | Duplicate skipped: Stephen Dean | calhounstephen@yahoo.com
+2026-08-08 17:47:39,871 | INFO | No new patients found
